@@ -7,7 +7,10 @@
   "scripts": {
     "dev": "bun --hot src/app.ts",
     "start": "bun src/app.ts",
-    "test": "bun test"
+    "build": "bun build src/app.ts --outdir dist --target node",
+    "test": "bun test",
+    "docker:build": "docker build -t finifi-three-way-match .",
+    "docker:run": "docker run -p 3000:3000 --env-file .env finifi-three-way-match"
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",

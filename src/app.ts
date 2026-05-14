@@ -1,4 +1,5 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import path from 'path';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'js-yaml';
@@ -16,7 +17,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // Swagger docs
-const swaggerDoc = YAML.load(readFileSync(path.join(process.cwd(), 'swagger.yaml'), 'utf8'));
+const swaggerDoc = YAML.load(readFileSync(path.join(process.cwd(), 'swagger.yaml'), 'utf8')) as Record<string, any>;
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 // Serve embedded UI

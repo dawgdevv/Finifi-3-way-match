@@ -3,147 +3,667 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Three-Way Match Service</title>
+  <title>Finifi — Three-Way Match</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #0b0d10;
+      --bg-elevated: #111318;
+      --bg-input: #0e1014;
+      --border: #1e2128;
+      --border-hover: #2a2e38;
+      --text: #e2e4e9;
+      --text-secondary: #8b919e;
+      --text-muted: #5c6170;
+      --accent: #5eead4;
+      --accent-dim: rgba(94, 234, 212, 0.1);
+      --accent-hover: #7df0de;
+      --success: #34d399;
+      --warning: #fbbf24;
+      --danger: #f87171;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --font-sans: 'Space Grotesk', system-ui, sans-serif;
+      --radius: 4px;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #f5f7fa;
-      color: #1a1a2e;
+
+    html {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 14px;
       line-height: 1.6;
-      padding: 2rem;
-      max-width: 900px;
-      margin: 0 auto;
+      -webkit-font-smoothing: antialiased;
     }
-    h1 { font-size: 1.8rem; margin-bottom: 0.5rem; color: #16213e; }
-    .subtitle { color: #666; margin-bottom: 2rem; }
-    .card {
-      background: white;
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      grid-template-rows: auto 1fr;
+      grid-template-areas:
+        "header header"
+        "sidebar main";
     }
-    .card h2 { font-size: 1.2rem; margin-bottom: 1rem; color: #0f3460; }
-    label { display: block; font-weight: 500; margin-bottom: 0.4rem; font-size: 0.9rem; }
-    input[type="file"], select {
-      width: 100%;
-      padding: 0.7rem;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      margin-bottom: 1rem;
+
+    @media (max-width: 800px) {
+      body {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "header"
+          "main";
+      }
+      .sidebar { display: none; }
     }
-    button {
-      background: #0f3460;
-      color: white;
-      border: none;
-      padding: 0.7rem 1.4rem;
-      border-radius: 8px;
-      font-size: 0.95rem;
+
+    /* --- Header --- */
+    .header {
+      grid-area: header;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 56px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--accent);
+      border-radius: var(--radius);
+      display: grid;
+      place-items: center;
+    }
+
+    .brand-mark::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 1px;
+    }
+
+    .header-links {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.8rem;
+    }
+
+    .header-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .header-links a:hover {
+      color: var(--text);
+    }
+
+    /* --- Sidebar --- */
+    .sidebar {
+      grid-area: sidebar;
+      border-right: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      background: var(--bg-elevated);
+    }
+
+    .sidebar-section h3 {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .sidebar-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .sidebar-list li {
+      padding: 0.4rem 0.6rem;
+      border-radius: var(--radius);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
       cursor: pointer;
-      transition: background 0.2s;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
-    button:hover { background: #16213e; }
-    button:disabled { background: #999; cursor: not-allowed; }
-    .result { margin-top: 1rem; }
-    .result pre {
-      background: #1a1a2e;
-      color: #e94560;
-      padding: 1rem;
-      border-radius: 8px;
-      overflow-x: auto;
-      font-size: 0.85rem;
+
+    .sidebar-list li:hover {
+      background: var(--bg-input);
+      color: var(--text);
     }
-    .status-matched { color: #27ae60; font-weight: bold; }
-    .status-mismatch { color: #e74c3c; font-weight: bold; }
-    .status-insufficient { color: #f39c12; font-weight: bold; }
-    .links { margin-top: 1.5rem; font-size: 0.9rem; }
-    .links a { color: #0f3460; text-decoration: none; margin-right: 1rem; }
-    .links a:hover { text-decoration: underline; }
-    .spinner {
-      display: inline-block;
-      width: 16px; height: 16px;
-      border: 2px solid #fff;
-      border-top: 2px solid transparent;
+
+    .sidebar-list li.active {
+      background: var(--accent-dim);
+      color: var(--accent);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin-right: 8px;
-      vertical-align: middle;
+      flex-shrink: 0;
     }
+
+    .status-dot.ready { background: var(--success); }
+    .status-dot.busy { background: var(--warning); }
+
+    /* --- Main --- */
+    .main {
+      grid-area: main;
+      padding: 2.5rem 3rem 4rem;
+      max-width: 960px;
+    }
+
+    @media (max-width: 800px) {
+      .main { padding: 1.5rem; }
+    }
+
+    .page-title {
+      font-family: var(--font-sans);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 0.4rem;
+    }
+
+    .page-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 2.5rem;
+    }
+
+    /* --- Section --- */
+    .section {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+      animation: fadeUp 0.5s ease-out both;
+    }
+
+    .section:nth-child(2) { animation-delay: 0.05s; }
+    .section:nth-child(3) { animation-delay: 0.1s; }
+    .section:nth-child(4) { animation-delay: 0.15s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-elevated);
+    }
+
+    .section-header h2 {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-header h2 .num {
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.75rem;
+    }
+
+    .section-body {
+      padding: 1.25rem;
+    }
+
+    /* --- Form --- */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem 1.25rem;
+    }
+
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .field.full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-secondary);
+    }
+
+    select, input[type="text"], input[type="file"] {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.65rem 0.8rem;
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      width: 100%;
+    }
+
+    select:focus, input[type="text"]:focus {
+      border-color: var(--border-hover);
+      box-shadow: 0 0 0 2px var(--accent-dim);
+    }
+
+    select option {
+      background: var(--bg-elevated);
+      color: var(--text);
+    }
+
+    /* File input styling */
+    input[type="file"] {
+      padding: 0.45rem 0.6rem;
+      cursor: pointer;
+    }
+
+    input[type="file"]::file-selector-button {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      padding: 0.35rem 0.7rem;
+      margin-right: 0.75rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    input[type="file"]::file-selector-button:hover {
+      background: var(--border);
+      color: var(--text);
+    }
+
+    /* --- Buttons --- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-elevated);
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      line-height: 1.4;
+    }
+
+    .btn:hover {
+      background: var(--bg-input);
+      color: var(--text);
+      border-color: var(--border-hover);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0b0d10;
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      color: #0b0d10;
+    }
+
+    .btn-danger {
+      border-color: rgba(248, 113, 113, 0.3);
+      color: var(--danger);
+    }
+
+    .btn-danger:hover {
+      background: rgba(248, 113, 113, 0.1);
+      border-color: rgba(248, 113, 113, 0.5);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* --- Code Block --- */
+    .code-block {
+      background: #08090c;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 0.8rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-elevated);
+    }
+
+    .code-header span {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .code-header .lang {
+      color: var(--accent);
+    }
+
+    pre {
+      padding: 1rem 1.25rem;
+      overflow-x: auto;
+      font-size: 0.8rem;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      max-height: 420px;
+      overflow-y: auto;
+    }
+
+    /* --- Status Pills --- */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.75rem;
+    }
+
+    .status-pill::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .status-pill.matched {
+      background: rgba(52, 211, 153, 0.1);
+      color: var(--success);
+      border: 1px solid rgba(52, 211, 153, 0.2);
+    }
+    .status-pill.matched::before { background: var(--success); }
+
+    .status-pill.mismatch {
+      background: rgba(248, 113, 113, 0.1);
+      color: var(--danger);
+      border: 1px solid rgba(248, 113, 113, 0.2);
+    }
+    .status-pill.mismatch::before { background: var(--danger); }
+
+    .status-pill.insufficient {
+      background: rgba(251, 191, 36, 0.1);
+      color: var(--warning);
+      border: 1px solid rgba(251, 191, 36, 0.2);
+    }
+    .status-pill.insufficient::before { background: var(--warning); }
+
+    /* --- Spinner --- */
+    .spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid currentColor;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+      opacity: 0.8;
+    }
+
     @keyframes spin { to { transform: rotate(360deg); } }
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* --- Empty state --- */
+    .empty {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      margin-top: 1rem;
+    }
+
+    /* --- Links bar --- */
+    .links-bar {
+      display: flex;
+      gap: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+      font-size: 0.75rem;
+    }
+
+    .links-bar a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .links-bar a:hover {
+      color: var(--accent);
+    }
   </style>
 </head>
 <body>
-  <h1>Three-Way Match Service</h1>
-  <p class="subtitle">Upload PO, GRN, and Invoice PDFs. The system will extract data via Gemini and run matching logic automatically.</p>
 
-  <div class="card">
-    <h2>Upload Document</h2>
-    <form id="uploadForm">
-      <label for="documentType">Document Type</label>
-      <select id="documentType" name="documentType" required>
-        <option value="">Select type...</option>
-        <option value="po">Purchase Order (PO)</option>
-        <option value="grn">Goods Receipt Note (GRN)</option>
-        <option value="invoice">Invoice</option>
-      </select>
+  <header class="header">
+    <a href="/" class="brand">
+      <div class="brand-mark"></div>
+      Finifi
+    </a>
+    <nav class="header-links">
+      <a href="/api-docs" target="_blank">API Docs</a>
+      <a href="/health" target="_blank">Health</a>
+    </nav>
+  </header>
 
-      <label for="file">PDF File</label>
-      <input type="file" id="file" name="file" accept="application/pdf" required />
-
-      <button type="submit" id="uploadBtn">Upload & Parse</button>
-    </form>
-
-    <div class="result" id="uploadResult" style="display:none;">
-      <h3>Result</h3>
-      <pre id="uploadJson"></pre>
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <h3>Workflow</h3>
+      <ul class="sidebar-list">
+        <li class="active"><span class="status-dot ready"></span> Upload Document</li>
+        <li><span class="status-dot"></span> Extract Data</li>
+        <li><span class="status-dot"></span> Match & Verify</li>
+      </ul>
     </div>
-  </div>
+    <div class="sidebar-section">
+      <h3>Document Types</h3>
+      <ul class="sidebar-list">
+        <li>Purchase Order</li>
+        <li>Goods Receipt</li>
+        <li>Invoice</li>
+      </ul>
+    </div>
+  </aside>
 
-  <div class="card">
-    <h2>Check Match Status</h2>
-    <div class="two-col">
-      <div>
-        <label for="poNumber">PO Number</label>
-        <input type="text" id="poNumber" placeholder="e.g., CI4PO05788" />
+  <main class="main">
+    <h1 class="page-title">Three-Way Match</h1>
+    <p class="page-subtitle">Upload PO, GRN, and Invoice PDFs. Data is extracted via Gemini and matching logic runs automatically.</p>
+
+    <!-- Upload Section -->
+    <section class="section">
+      <div class="section-header">
+        <h2><span class="num">01</span> Upload Document</h2>
       </div>
-    </div>
-    <button id="checkBtn" style="margin-top:1rem;">Check Match</button>
-    <button id="downloadBtn" style="margin-top:1rem; margin-left:0.5rem; background:#e94560;">Download Report</button>
+      <div class="section-body">
+        <form id="uploadForm">
+          <div class="form-grid">
+            <div class="field">
+              <label for="documentType">Document Type</label>
+              <select id="documentType" name="documentType" required>
+                <option value="">Select type...</option>
+                <option value="po">Purchase Order (PO)</option>
+                <option value="grn">Goods Receipt Note (GRN)</option>
+                <option value="invoice">Invoice</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="file">PDF File</label>
+              <input type="file" id="file" name="file" accept="application/pdf" required />
+            </div>
+          </div>
+          <div class="actions">
+            <button type="submit" class="btn btn-primary" id="uploadBtn">
+              Upload & Parse
+            </button>
+          </div>
+        </form>
 
-    <div class="result" id="matchResult" style="display:none;">
-      <h3>Match Result</h3>
-      <div id="matchStatus"></div>
-      <pre id="matchJson"></pre>
-    </div>
-  </div>
+        <div id="uploadResult" style="display:none;">
+          <div class="code-block">
+            <div class="code-header">
+              <span>Result</span>
+              <span class="lang">JSON</span>
+            </div>
+            <pre id="uploadJson"></pre>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <div class="links card">
-    <a href="/api-docs" target="_blank">Open Swagger UI</a>
-    <a href="/health" target="_blank">Health Check</a>
-  </div>
+    <!-- Match Section -->
+    <section class="section">
+      <div class="section-header">
+        <h2><span class="num">02</span> Check Match Status</h2>
+      </div>
+      <div class="section-body">
+        <div class="form-grid">
+          <div class="field">
+            <label for="poNumber">PO Number</label>
+            <input type="text" id="poNumber" placeholder="e.g. CI4PO05788" />
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn btn-primary" id="checkBtn">Check Match</button>
+          <button class="btn btn-danger" id="downloadBtn">Download Report</button>
+        </div>
+
+        <div id="matchResult" style="display:none;">
+          <div id="matchStatus"></div>
+          <div class="code-block">
+            <div class="code-header">
+              <span>Match Result</span>
+              <span class="lang">JSON</span>
+            </div>
+            <pre id="matchJson"></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="links-bar">
+      <a href="/api-docs" target="_blank">Swagger UI</a>
+      <a href="/health" target="_blank">Health Check</a>
+    </div>
+  </main>
 
   <script>
-    const uploadForm = document.getElementById('uploadForm');
-    const uploadBtn = document.getElementById('uploadBtn');
-    const uploadResult = document.getElementById('uploadResult');
-    const uploadJson = document.getElementById('uploadJson');
+    const $ = (id) => document.getElementById(id);
 
-    const checkBtn = document.getElementById('checkBtn');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const matchResult = document.getElementById('matchResult');
-    const matchStatus = document.getElementById('matchStatus');
-    const matchJson = document.getElementById('matchJson');
+    const uploadForm = $('uploadForm');
+    const uploadBtn = $('uploadBtn');
+    const uploadResult = $('uploadResult');
+    const uploadJson = $('uploadJson');
+
+    const checkBtn = $('checkBtn');
+    const downloadBtn = $('downloadBtn');
+    const matchResult = $('matchResult');
+    const matchStatus = $('matchStatus');
+    const matchJson = $('matchJson');
+
+    function setLoading(btn, text) {
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> ' + text;
+    }
+
+    function resetBtn(btn, text) {
+      btn.disabled = false;
+      btn.textContent = text;
+    }
 
     uploadForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const formData = new FormData(uploadForm);
 
-      uploadBtn.disabled = true;
-      uploadBtn.innerHTML = '<span class="spinner"></span> Uploading...';
+      setLoading(uploadBtn, 'Uploading...');
 
       try {
         const res = await fetch('/documents/upload', {
@@ -156,23 +676,21 @@
         uploadJson.textContent = JSON.stringify(data, null, 2);
 
         if (data.matchState?.poNumber) {
-          document.getElementById('poNumber').value = data.matchState.poNumber;
+          $('poNumber').value = data.matchState.poNumber;
         }
       } catch (err) {
         uploadResult.style.display = 'block';
         uploadJson.textContent = 'Error: ' + err.message;
       } finally {
-        uploadBtn.disabled = false;
-        uploadBtn.textContent = 'Upload & Parse';
+        resetBtn(uploadBtn, 'Upload & Parse');
       }
     });
 
     checkBtn.addEventListener('click', async () => {
-      const poNumber = document.getElementById('poNumber').value.trim();
+      const poNumber = $('poNumber').value.trim();
       if (!poNumber) { alert('Enter a PO number'); return; }
 
-      checkBtn.disabled = true;
-      checkBtn.innerHTML = '<span class="spinner"></span> Checking...';
+      setLoading(checkBtn, 'Checking...');
 
       try {
         const res = await fetch(`/match/${encodeURIComponent(poNumber)}`);
@@ -181,21 +699,21 @@
         matchResult.style.display = 'block';
         matchJson.textContent = JSON.stringify(data, null, 2);
 
-        const statusClass = data.status === 'matched' ? 'status-matched'
-          : data.status === 'insufficient_documents' ? 'status-insufficient'
-          : 'status-mismatch';
-        matchStatus.innerHTML = `<p class="${statusClass}">Status: ${data.status.toUpperCase()}</p>`;
+        const statusClass = data.status === 'matched' ? 'matched'
+          : data.status === 'insufficient_documents' ? 'insufficient'
+          : 'mismatch';
+        matchStatus.innerHTML = `<span class="status-pill ${statusClass}">${data.status.toUpperCase()}</span>`;
       } catch (err) {
         matchResult.style.display = 'block';
         matchJson.textContent = 'Error: ' + err.message;
+        matchStatus.innerHTML = '';
       } finally {
-        checkBtn.disabled = false;
-        checkBtn.textContent = 'Check Match';
+        resetBtn(checkBtn, 'Check Match');
       }
     });
 
     downloadBtn.addEventListener('click', async () => {
-      const poNumber = document.getElementById('poNumber').value.trim();
+      const poNumber = $('poNumber').value.trim();
       if (!poNumber) { alert('Enter a PO number'); return; }
       window.open(`/match/${encodeURIComponent(poNumber)}/download`, '_blank');
     });

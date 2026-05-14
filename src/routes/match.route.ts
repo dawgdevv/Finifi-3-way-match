@@ -1,4 +1,5 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import { runMatch } from '../services/match.service.js';
 import MatchResult from '../models/MatchResult.js';
 
@@ -7,7 +8,7 @@ const router = Router();
 // Get match result by PO number
 router.get('/:poNumber', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { poNumber } = req.params;
+    const { poNumber } = req.params as { poNumber: string };
 
     // Re-run match to get latest state
     await runMatch(poNumber);
@@ -31,7 +32,7 @@ router.get('/:poNumber', async (req: Request, res: Response, next: NextFunction)
 // Download match report as JSON
 router.get('/:poNumber/download', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { poNumber } = req.params;
+    const { poNumber } = req.params as { poNumber: string };
 
     await runMatch(poNumber);
 

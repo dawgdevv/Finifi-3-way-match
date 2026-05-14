@@ -1,4 +1,5 @@
-import { geminiModel, PROMPTS, DocumentType } from '../config/gemini.js';
+import { getGeminiModel, PROMPTS } from '../config/gemini.js';
+import type { DocumentType } from '../config/gemini.js';
 
 export async function parseDocument(
   fileBuffer: Buffer,
@@ -8,7 +9,7 @@ export async function parseDocument(
   const prompt = PROMPTS[docType];
 
   try {
-    const result = await geminiModel.generateContent([
+    const result = await getGeminiModel().generateContent([
       {
         inlineData: {
           data: fileBuffer.toString('base64'),

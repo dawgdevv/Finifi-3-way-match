@@ -1,4 +1,5 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import { upload } from '../middleware/upload.middleware.js';
 import { parseDocument } from '../services/parser.service.js';
 import { runMatch } from '../services/match.service.js';

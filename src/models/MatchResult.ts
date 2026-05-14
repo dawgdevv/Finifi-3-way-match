@@ -1,4 +1,5 @@
-import mongoose, { Schema, Document, Types } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
+import type { Document, Types } from 'mongoose';
 
 export type MatchStatus = 'matched' | 'partially_matched' | 'mismatch' | 'insufficient_documents';
 

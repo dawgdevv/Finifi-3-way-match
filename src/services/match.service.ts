@@ -1,8 +1,8 @@
 import PurchaseOrder from '../models/PurchaseOrder.js';
 import GoodsReceipt from '../models/GoodReceipt.js';
 import Invoice from '../models/Invoice.js';
-import MatchResult, { MatchStatus } from '../models/MatchResult.js';
-
+import MatchResult from '../models/MatchResult.js';
+import type { MatchStatus } from '../models/MatchResult.js'
 function buildMap(items: any[], qtyField: string): Record<string, number> {
   const map: Record<string, number> = {};
   for (const item of items) {
