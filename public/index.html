@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0d10">
   <title>Finifi — Three-Way Match</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,25 +32,27 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     html {
+      color-scheme: dark;
       background: var(--bg);
       color: var(--text);
       font-family: var(--font-mono);
       font-size: 14px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 280px 1fr;
+      grid-template-columns: 260px 1fr;
       grid-template-rows: auto 1fr;
       grid-template-areas:
         "header header"
         "sidebar main";
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 900px) {
       body {
         grid-template-columns: 1fr;
         grid-template-areas:
@@ -59,6 +62,23 @@
       .sidebar { display: none; }
     }
 
+    /* --- Skip Link --- */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--accent);
+      color: #0b0d10;
+      padding: 0.5rem 1rem;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.8rem;
+      z-index: 100;
+      transition: top 0.15s;
+      border-radius: 0 0 var(--radius) 0;
+    }
+    .skip-link:focus { top: 0; }
+
     /* --- Header --- */
     .header {
       grid-area: header;
@@ -66,7 +86,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 2rem;
-      height: 56px;
+      height: 52px;
       border-bottom: 1px solid var(--border);
       background: var(--bg);
       position: sticky;
@@ -123,7 +143,7 @@
     .sidebar {
       grid-area: sidebar;
       border-right: 1px solid var(--border);
-      padding: 2rem 1.5rem;
+      padding: 2rem 1.25rem;
       display: flex;
       flex-direction: column;
       gap: 2rem;
@@ -147,24 +167,29 @@
       gap: 0.25rem;
     }
 
-    .sidebar-list li {
+    .sidebar-list button {
+      width: 100%;
+      text-align: left;
       padding: 0.4rem 0.6rem;
       border-radius: var(--radius);
       font-size: 0.8rem;
       color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.15s;
+      transition: background 0.15s, color 0.15s;
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      background: none;
+      border: none;
+      font-family: var(--font-mono);
     }
 
-    .sidebar-list li:hover {
+    .sidebar-list button:hover {
       background: var(--bg-input);
       color: var(--text);
     }
 
-    .sidebar-list li.active {
+    .sidebar-list button.active {
       background: var(--accent-dim);
       color: var(--accent);
     }
@@ -182,11 +207,10 @@
     /* --- Main --- */
     .main {
       grid-area: main;
-      padding: 2.5rem 3rem 4rem;
-      max-width: 960px;
+      padding: 2rem 2.5rem 4rem;
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 900px) {
       .main { padding: 1.5rem; }
     }
 
@@ -197,37 +221,79 @@
       letter-spacing: -0.03em;
       line-height: 1.2;
       margin-bottom: 0.4rem;
+      text-wrap: balance;
     }
 
     .page-subtitle {
       color: var(--text-secondary);
       font-size: 0.85rem;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    /* --- Grid Layout for Content --- */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 1200px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .primary-col {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .side-col {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      position: sticky;
+      top: 68px;
+      max-height: calc(100vh - 84px);
+      overflow-y: auto;
+    }
+
+    @media (max-width: 1200px) {
+      .side-col {
+        position: static;
+        max-height: none;
+      }
     }
 
     /* --- Section --- */
     .section {
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      margin-bottom: 1.5rem;
       overflow: hidden;
       animation: fadeUp 0.5s ease-out both;
     }
 
     .section:nth-child(2) { animation-delay: 0.05s; }
     .section:nth-child(3) { animation-delay: 0.1s; }
-    .section:nth-child(4) { animation-delay: 0.15s; }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      .section { animation: none; }
+    }
+
     .section-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.9rem 1.25rem;
+      padding: 0.85rem 1.15rem;
       border-bottom: 1px solid var(--border);
       background: var(--bg-elevated);
     }
@@ -250,7 +316,7 @@
     }
 
     .section-body {
-      padding: 1.25rem;
+      padding: 1.15rem;
     }
 
     /* --- Form --- */
@@ -270,10 +336,6 @@
       gap: 0.35rem;
     }
 
-    .field.full-width {
-      grid-column: 1 / -1;
-    }
-
     label {
       font-family: var(--font-sans);
       font-size: 0.7rem;
@@ -287,7 +349,7 @@
       background: var(--bg-input);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 0.65rem 0.8rem;
+      padding: 0.6rem 0.75rem;
       color: var(--text);
       font-family: var(--font-mono);
       font-size: 0.8rem;
@@ -296,7 +358,7 @@
       width: 100%;
     }
 
-    select:focus, input[type="text"]:focus {
+    select:focus-visible, input[type="text"]:focus-visible, input[type="file"]:focus-visible {
       border-color: var(--border-hover);
       box-shadow: 0 0 0 2px var(--accent-dim);
     }
@@ -306,9 +368,8 @@
       color: var(--text);
     }
 
-    /* File input styling */
     input[type="file"] {
-      padding: 0.45rem 0.6rem;
+      padding: 0.4rem 0.55rem;
       cursor: pointer;
     }
 
@@ -319,10 +380,10 @@
       color: var(--text-secondary);
       font-family: var(--font-mono);
       font-size: 0.75rem;
-      padding: 0.35rem 0.7rem;
+      padding: 0.3rem 0.65rem;
       margin-right: 0.75rem;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
     }
 
     input[type="file"]::file-selector-button:hover {
@@ -335,7 +396,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.6rem 1.1rem;
+      padding: 0.55rem 1rem;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       background: var(--bg-elevated);
@@ -344,14 +405,20 @@
       font-size: 0.8rem;
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.1s;
       line-height: 1.4;
+      touch-action: manipulation;
     }
 
     .btn:hover {
       background: var(--bg-input);
       color: var(--text);
       border-color: var(--border-hover);
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
 
     .btn:active {
@@ -400,14 +467,17 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
-      margin-top: 1rem;
+    }
+
+    .code-block + .code-block {
+      margin-top: 0.75rem;
     }
 
     .code-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.5rem 0.8rem;
+      padding: 0.45rem 0.75rem;
       border-bottom: 1px solid var(--border);
       background: var(--bg-elevated);
     }
@@ -424,12 +494,12 @@
     }
 
     pre {
-      padding: 1rem 1.25rem;
+      padding: 0.85rem 1rem;
       overflow-x: auto;
-      font-size: 0.8rem;
-      line-height: 1.65;
+      font-size: 0.78rem;
+      line-height: 1.6;
       color: var(--text-secondary);
-      max-height: 420px;
+      max-height: 360px;
       overflow-y: auto;
     }
 
@@ -444,7 +514,6 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.04em;
-      margin-bottom: 0.75rem;
     }
 
     .status-pill::before {
@@ -476,6 +545,69 @@
     }
     .status-pill.insufficient::before { background: var(--warning); }
 
+    /* --- Document Cards (feed) --- */
+    .doc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .doc-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.85rem 1rem;
+      background: var(--bg-elevated);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .doc-card:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-input);
+    }
+
+    .doc-card:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .doc-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.4rem;
+    }
+
+    .doc-type {
+      font-family: var(--font-sans);
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.15rem 0.4rem;
+      border-radius: var(--radius);
+      background: var(--accent-dim);
+      color: var(--accent);
+    }
+
+    .doc-type.grn { background: rgba(96, 165, 250, 0.1); color: #60a5fa; }
+    .doc-type.invoice { background: rgba(248, 113, 113, 0.1); color: var(--danger); }
+
+    .doc-time {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .doc-po {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .doc-po strong {
+      color: var(--text);
+    }
+
     /* --- Spinner --- */
     .spinner {
       width: 14px;
@@ -490,6 +622,10 @@
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
+    @media (prefers-reduced-motion: reduce) {
+      .spinner { animation: none; border: 2px solid currentColor; }
+    }
+
     /* --- Empty state --- */
     .empty {
       color: var(--text-muted);
@@ -498,7 +634,6 @@
       text-align: center;
       border: 1px dashed var(--border);
       border-radius: var(--radius);
-      margin-top: 1rem;
     }
 
     /* --- Links bar --- */
@@ -520,12 +655,100 @@
     .links-bar a:hover {
       color: var(--accent);
     }
+
+    /* --- Result split --- */
+    .result-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 900px) {
+      .result-split { grid-template-columns: 1fr; }
+    }
+
+    .result-col h4 {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    /* --- Collapsible --- */
+    .collapsible {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .collapsible-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 0.85rem;
+      background: var(--bg-elevated);
+      border: none;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .collapsible-header:hover {
+      color: var(--text);
+      background: var(--bg-input);
+    }
+
+    .collapsible-header:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+    }
+
+    .collapsible-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.25s ease-out;
+    }
+
+    .collapsible.open .collapsible-body {
+      grid-template-rows: 1fr;
+    }
+
+    .collapsible-inner {
+      overflow: hidden;
+      padding: 0 0.85rem;
+    }
+
+    .collapsible.open .collapsible-inner {
+      padding: 0.75rem 0.85rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .collapsible-body { transition: none; }
+    }
+
+    .chevron {
+      transition: transform 0.2s;
+      font-size: 0.7rem;
+    }
+
+    .collapsible.open .chevron {
+      transform: rotate(180deg);
+    }
   </style>
 </head>
 <body>
 
+  <a href="#main" class="skip-link">Skip to content</a>
+
   <header class="header">
-    <a href="/" class="brand">
+    <a href="/" class="brand" translate="no">
       <div class="brand-mark"></div>
       Finifi
     </a>
@@ -535,103 +758,142 @@
     </nav>
   </header>
 
-  <aside class="sidebar">
+  <aside class="sidebar" aria-label="Workflow sidebar">
     <div class="sidebar-section">
       <h3>Workflow</h3>
-      <ul class="sidebar-list">
-        <li class="active"><span class="status-dot ready"></span> Upload Document</li>
-        <li><span class="status-dot"></span> Extract Data</li>
-        <li><span class="status-dot"></span> Match & Verify</li>
+      <ul class="sidebar-list" role="tablist">
+        <li><button class="active" role="tab" aria-selected="true"><span class="status-dot ready"></span> Upload Document</button></li>
+        <li><button role="tab" aria-selected="false"><span class="status-dot"></span> Extract Data</button></li>
+        <li><button role="tab" aria-selected="false"><span class="status-dot"></span> Match & Verify</button></li>
       </ul>
     </div>
     <div class="sidebar-section">
       <h3>Document Types</h3>
       <ul class="sidebar-list">
-        <li>Purchase Order</li>
-        <li>Goods Receipt</li>
-        <li>Invoice</li>
+        <li><button>Purchase Order</button></li>
+        <li><button>Goods Receipt</button></li>
+        <li><button>Invoice</button></li>
       </ul>
     </div>
   </aside>
 
-  <main class="main">
+  <main id="main" class="main">
     <h1 class="page-title">Three-Way Match</h1>
     <p class="page-subtitle">Upload PO, GRN, and Invoice PDFs. Data is extracted via Gemini and matching logic runs automatically.</p>
 
-    <!-- Upload Section -->
-    <section class="section">
-      <div class="section-header">
-        <h2><span class="num">01</span> Upload Document</h2>
-      </div>
-      <div class="section-body">
-        <form id="uploadForm">
-          <div class="form-grid">
-            <div class="field">
-              <label for="documentType">Document Type</label>
-              <select id="documentType" name="documentType" required>
-                <option value="">Select type...</option>
-                <option value="po">Purchase Order (PO)</option>
-                <option value="grn">Goods Receipt Note (GRN)</option>
-                <option value="invoice">Invoice</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="file">PDF File</label>
-              <input type="file" id="file" name="file" accept="application/pdf" required />
-            </div>
+    <div class="content-grid">
+      <div class="primary-col">
+        <!-- Upload Section -->
+        <section class="section" aria-labelledby="upload-heading">
+          <div class="section-header">
+            <h2 id="upload-heading"><span class="num">01</span> Upload Document</h2>
           </div>
-          <div class="actions">
-            <button type="submit" class="btn btn-primary" id="uploadBtn">
-              Upload & Parse
-            </button>
-          </div>
-        </form>
+          <div class="section-body">
+            <form id="uploadForm">
+              <div class="form-grid">
+                <div class="field">
+                  <label for="documentType">Document Type</label>
+                  <select id="documentType" name="documentType" autocomplete="off" required>
+                    <option value="">Select type…</option>
+                    <option value="po">Purchase Order (PO)</option>
+                    <option value="grn">Goods Receipt Note (GRN)</option>
+                    <option value="invoice">Invoice</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="file">PDF File</label>
+                  <input type="file" id="file" name="file" accept="application/pdf" required />
+                </div>
+              </div>
+              <div class="actions">
+                <button type="submit" class="btn btn-primary" id="uploadBtn">
+                  Upload & Parse
+                </button>
+              </div>
+            </form>
 
-        <div id="uploadResult" style="display:none;">
-          <div class="code-block">
-            <div class="code-header">
-              <span>Result</span>
-              <span class="lang">JSON</span>
+            <div id="uploadResult" style="display:none;" aria-live="polite">
+              <div class="result-split">
+                <div class="result-col">
+                  <h4>Parsed Document</h4>
+                  <div class="code-block">
+                    <div class="code-header">
+                      <span>Document</span>
+                      <span class="lang" id="docLang">JSON</span>
+                    </div>
+                    <pre id="uploadDocJson"></pre>
+                  </div>
+                </div>
+                <div class="result-col">
+                  <h4>Match State</h4>
+                  <div class="code-block">
+                    <div class="code-header">
+                      <span>Match</span>
+                      <span class="lang" id="matchLang">JSON</span>
+                    </div>
+                    <pre id="uploadMatchJson"></pre>
+                  </div>
+                </div>
+              </div>
             </div>
-            <pre id="uploadJson"></pre>
           </div>
+        </section>
+
+        <!-- Match Section -->
+        <section class="section" aria-labelledby="match-heading">
+          <div class="section-header">
+            <h2 id="match-heading"><span class="num">02</span> Check Match Status</h2>
+          </div>
+          <div class="section-body">
+            <div class="form-grid">
+              <div class="field">
+                <label for="poNumber">PO Number</label>
+                <input type="text" id="poNumber" placeholder="e.g. CI4PO05788" autocomplete="off" spellcheck="false" />
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-primary" id="checkBtn">Check Match</button>
+              <button class="btn btn-danger" id="downloadBtn">Download Report</button>
+            </div>
+
+            <div id="matchResult" style="display:none;" aria-live="polite">
+              <div id="matchStatus"></div>
+              <div class="code-block">
+                <div class="code-header">
+                  <span>Match Result</span>
+                  <span class="lang">JSON</span>
+                </div>
+                <pre id="matchJson"></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="links-bar">
+          <a href="/api-docs" target="_blank">Swagger UI</a>
+          <a href="/health" target="_blank">Health Check</a>
         </div>
       </div>
-    </section>
 
-    <!-- Match Section -->
-    <section class="section">
-      <div class="section-header">
-        <h2><span class="num">02</span> Check Match Status</h2>
-      </div>
-      <div class="section-body">
-        <div class="form-grid">
-          <div class="field">
-            <label for="poNumber">PO Number</label>
-            <input type="text" id="poNumber" placeholder="e.g. CI4PO05788" />
+      <!-- Side Panel: Upload History -->
+      <aside class="side-col" aria-label="Upload history">
+        <section class="section">
+          <div class="section-header">
+            <h2><span class="num">03</span> Document Feed</h2>
           </div>
-        </div>
-        <div class="actions">
-          <button class="btn btn-primary" id="checkBtn">Check Match</button>
-          <button class="btn btn-danger" id="downloadBtn">Download Report</button>
-        </div>
-
-        <div id="matchResult" style="display:none;">
-          <div id="matchStatus"></div>
-          <div class="code-block">
-            <div class="code-header">
-              <span>Match Result</span>
-              <span class="lang">JSON</span>
-            </div>
-            <pre id="matchJson"></pre>
+          <div class="section-body" id="docFeed">
+            <div class="empty">No documents uploaded yet.</div>
           </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <div class="links-bar">
-      <a href="/api-docs" target="_blank">Swagger UI</a>
-      <a href="/health" target="_blank">Health Check</a>
+        <section class="section" id="selectedDocSection" style="display:none;">
+          <div class="section-header">
+            <h2>Selected Document</h2>
+          </div>
+          <div class="section-body" id="selectedDocBody">
+          </div>
+        </section>
+      </aside>
     </div>
   </main>
 
@@ -641,13 +903,19 @@
     const uploadForm = $('uploadForm');
     const uploadBtn = $('uploadBtn');
     const uploadResult = $('uploadResult');
-    const uploadJson = $('uploadJson');
+    const uploadDocJson = $('uploadDocJson');
+    const uploadMatchJson = $('uploadMatchJson');
+    const docFeed = $('docFeed');
+    const selectedDocSection = $('selectedDocSection');
+    const selectedDocBody = $('selectedDocBody');
 
     const checkBtn = $('checkBtn');
     const downloadBtn = $('downloadBtn');
     const matchResult = $('matchResult');
     const matchStatus = $('matchStatus');
     const matchJson = $('matchJson');
+
+    let uploadHistory = [];
 
     function setLoading(btn, text) {
       btn.disabled = true;
@@ -659,11 +927,95 @@
       btn.textContent = text;
     }
 
+    function formatTime(date) {
+      return new Intl.DateTimeFormat('en', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      }).format(date);
+    }
+
+    function getDocTypeLabel(type) {
+      const map = { po: 'PO', grn: 'GRN', invoice: 'Invoice' };
+      return map[type] || type;
+    }
+
+    function getDocTypeClass(type) {
+      return type === 'po' ? '' : type;
+    }
+
+    function getDocPoNumber(doc) {
+      return doc?.poNumber || doc?.document?.poNumber || '—';
+    }
+
+    function renderFeed() {
+      if (!uploadHistory.length) {
+        docFeed.innerHTML = '<div class="empty">No documents uploaded yet.</div>';
+        return;
+      }
+
+      docFeed.innerHTML = '<div class="doc-list">' +
+        uploadHistory.map((item, i) => {
+          const type = item.documentType || item._type || 'po';
+          const po = getDocPoNumber(item.rawData);
+          return `
+            <button class="doc-card" onclick="showDocDetail(${i})" tabindex="0" onkeydown="if(event.key==='Enter')showDocDetail(${i})">
+              <div class="doc-card-header">
+                <span class="doc-type ${getDocTypeClass(type)}">${getDocTypeLabel(type)}</span>
+                <span class="doc-time">${formatTime(item.time)}</span>
+              </div>
+              <div class="doc-po">PO: <strong>${po}</strong></div>
+            </button>
+          `;
+        }).reverse().join('') +
+      '</div>';
+    }
+
+    window.showDocDetail = function(index) {
+      const item = uploadHistory[index];
+      if (!item) return;
+
+      const type = item.documentType || item._type || 'po';
+      const po = getDocPoNumber(item.rawData);
+
+      selectedDocSection.style.display = 'block';
+      selectedDocBody.innerHTML = `
+        <div class="field" style="margin-bottom:0.75rem;">
+          <label>Type</label>
+          <div style="color:var(--text);font-size:0.85rem;">${getDocTypeLabel(type)}</div>
+        </div>
+        <div class="field" style="margin-bottom:0.75rem;">
+          <label>PO Number</label>
+          <div style="color:var(--text);font-size:0.85rem;font-variant-numeric:tabular-nums;">${po}</div>
+        </div>
+        <div class="collapsible open" id="rawCollapsible">
+          <button class="collapsible-header" onclick="this.parentElement.classList.toggle('open')">
+            <span>Parsed JSON</span>
+            <span class="chevron">▼</span>
+          </button>
+          <div class="collapsible-body">
+            <div class="collapsible-inner">
+              <div class="code-block" style="border:none;">
+                <pre style="max-height:300px;font-size:0.75rem;">${JSON.stringify(item.rawData, null, 2)}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Scroll into view on mobile
+      if (window.innerWidth <= 1200) {
+        selectedDocSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    };
+
     uploadForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const formData = new FormData(uploadForm);
+      const documentType = $('documentType').value;
 
-      setLoading(uploadBtn, 'Uploading...');
+      setLoading(uploadBtn, 'Uploading…');
 
       try {
         const res = await fetch('/documents/upload', {
@@ -672,15 +1024,27 @@
         });
         const data = await res.json();
 
+        // Push to history
+        uploadHistory.push({
+          time: new Date(),
+          documentType,
+          rawData: data,
+          _type: documentType,
+        });
+        renderFeed();
+
+        // Show split result
         uploadResult.style.display = 'block';
-        uploadJson.textContent = JSON.stringify(data, null, 2);
+        uploadDocJson.textContent = JSON.stringify(data.document || data, null, 2);
+        uploadMatchJson.textContent = JSON.stringify(data.matchState || null, null, 2);
 
         if (data.matchState?.poNumber) {
           $('poNumber').value = data.matchState.poNumber;
         }
       } catch (err) {
         uploadResult.style.display = 'block';
-        uploadJson.textContent = 'Error: ' + err.message;
+        uploadDocJson.textContent = 'Error: ' + err.message;
+        uploadMatchJson.textContent = '';
       } finally {
         resetBtn(uploadBtn, 'Upload & Parse');
       }
@@ -690,7 +1054,7 @@
       const poNumber = $('poNumber').value.trim();
       if (!poNumber) { alert('Enter a PO number'); return; }
 
-      setLoading(checkBtn, 'Checking...');
+      setLoading(checkBtn, 'Checking…');
 
       try {
         const res = await fetch(`/match/${encodeURIComponent(poNumber)}`);
