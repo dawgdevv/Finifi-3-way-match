@@ -1,0 +1,148 @@
+openapi: 3.0.3
+info:
+  title: Three-Way Match Service
+  description: |
+    Upload PO, GRN, and Invoice PDFs. The service extracts data via Google Gemini
+    and performs automated three-way matching.
+  version: 1.0.0
+  contact:
+    name: API Support
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+
+tags:
+  - name: Documents
+    description: Upload and retrieve documents
+  - name: Match
+    description: Run and retrieve match results
+
+paths:
+  /health:
+    get:
+      summary: Health check
+      tags: [Health]
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string, example: ok }
+                  timestamp: { type: string, format: date-time }
+
+  /documents/upload:
+    post:
+      summary: Upload a document (PO, GRN, or Invoice)
+      tags: [Documents]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file, documentType]
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: PDF file to parse
+                documentType:
+                  type: string
+                  enum: [po, grn, invoice]
+                  description: Type of document
+      responses:
+        '201':
+          description: Document uploaded and parsed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  document:
+                    type: object
+                    description: Saved document
+                  matchState:
+                    type: object
+                    description: Current match state for this PO
+        '400':
+          description: Invalid input
+        '409':
+          description: Duplicate PO
+        '422':
+          description: Gemini parse error
+
+  /documents/{collection}/{id}:
+    get:
+      summary: Get a document by ID
+      tags: [Documents]
+      parameters:
+        - name: collection
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [po, grn, invoice]
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Document found
+        '404':
+          description: Document not found
+
+  /match/{poNumber}:
+    get:
+      summary: Get match result for a PO
+      tags: [Match]
+      parameters:
+        - name: poNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Match result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  poNumber: { type: string }
+                  status:
+                    type: string
+                    enum: [matched, partially_matched, mismatch, insufficient_documents]
+                  mismatches:
+                    type: array
+                    items: { type: string }
+                  linkedDocs:
+                    type: object
+        '404':
+          description: No match result found
+
+  /match/{poNumber}/download:
+    get:
+      summary: Download match report as JSON
+      tags: [Match]
+      parameters:
+        - name: poNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: JSON file download
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: No match result found

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three-Way Match Service</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f7fa;
+      color: #1a1a2e;
+      line-height: 1.6;
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    h1 { font-size: 1.8rem; margin-bottom: 0.5rem; color: #16213e; }
+    .subtitle { color: #666; margin-bottom: 2rem; }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .card h2 { font-size: 1.2rem; margin-bottom: 1rem; color: #0f3460; }
+    label { display: block; font-weight: 500; margin-bottom: 0.4rem; font-size: 0.9rem; }
+    input[type="file"], select {
+      width: 100%;
+      padding: 0.7rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+    button {
+      background: #0f3460;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.4rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover { background: #16213e; }
+    button:disabled { background: #999; cursor: not-allowed; }
+    .result { margin-top: 1rem; }
+    .result pre {
+      background: #1a1a2e;
+      color: #e94560;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+    }
+    .status-matched { color: #27ae60; font-weight: bold; }
+    .status-mismatch { color: #e74c3c; font-weight: bold; }
+    .status-insufficient { color: #f39c12; font-weight: bold; }
+    .links { margin-top: 1.5rem; font-size: 0.9rem; }
+    .links a { color: #0f3460; text-decoration: none; margin-right: 1rem; }
+    .links a:hover { text-decoration: underline; }
+    .spinner {
+      display: inline-block;
+      width: 16px; height: 16px;
+      border: 2px solid #fff;
+      border-top: 2px solid transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <h1>Three-Way Match Service</h1>
+  <p class="subtitle">Upload PO, GRN, and Invoice PDFs. The system will extract data via Gemini and run matching logic automatically.</p>
+
+  <div class="card">
+    <h2>Upload Document</h2>
+    <form id="uploadForm">
+      <label for="documentType">Document Type</label>
+      <select id="documentType" name="documentType" required>
+        <option value="">Select type...</option>
+        <option value="po">Purchase Order (PO)</option>
+        <option value="grn">Goods Receipt Note (GRN)</option>
+        <option value="invoice">Invoice</option>
+      </select>
+
+      <label for="file">PDF File</label>
+      <input type="file" id="file" name="file" accept="application/pdf" required />
+
+      <button type="submit" id="uploadBtn">Upload & Parse</button>
+    </form>
+
+    <div class="result" id="uploadResult" style="display:none;">
+      <h3>Result</h3>
+      <pre id="uploadJson"></pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Check Match Status</h2>
+    <div class="two-col">
+      <div>
+        <label for="poNumber">PO Number</label>
+        <input type="text" id="poNumber" placeholder="e.g., CI4PO05788" />
+      </div>
+    </div>
+    <button id="checkBtn" style="margin-top:1rem;">Check Match</button>
+    <button id="downloadBtn" style="margin-top:1rem; margin-left:0.5rem; background:#e94560;">Download Report</button>
+
+    <div class="result" id="matchResult" style="display:none;">
+      <h3>Match Result</h3>
+      <div id="matchStatus"></div>
+      <pre id="matchJson"></pre>
+    </div>
+  </div>
+
+  <div class="links card">
+    <a href="/api-docs" target="_blank">Open Swagger UI</a>
+    <a href="/health" target="_blank">Health Check</a>
+  </div>
+
+  <script>
+    const uploadForm = document.getElementById('uploadForm');
+    const uploadBtn = document.getElementById('uploadBtn');
+    const uploadResult = document.getElementById('uploadResult');
+    const uploadJson = document.getElementById('uploadJson');
+
+    const checkBtn = document.getElementById('checkBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const matchResult = document.getElementById('matchResult');
+    const matchStatus = document.getElementById('matchStatus');
+    const matchJson = document.getElementById('matchJson');
+
+    uploadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(uploadForm);
+
+      uploadBtn.disabled = true;
+      uploadBtn.innerHTML = '<span class="spinner"></span> Uploading...';
+
+      try {
+        const res = await fetch('/documents/upload', {
+          method: 'POST',
+          body: formData,
+        });
+        const data = await res.json();
+
+        uploadResult.style.display = 'block';
+        uploadJson.textContent = JSON.stringify(data, null, 2);
+
+        if (data.matchState?.poNumber) {
+          document.getElementById('poNumber').value = data.matchState.poNumber;
+        }
+      } catch (err) {
+        uploadResult.style.display = 'block';
+        uploadJson.textContent = 'Error: ' + err.message;
+      } finally {
+        uploadBtn.disabled = false;
+        uploadBtn.textContent = 'Upload & Parse';
+      }
+    });
+
+    checkBtn.addEventListener('click', async () => {
+      const poNumber = document.getElementById('poNumber').value.trim();
+      if (!poNumber) { alert('Enter a PO number'); return; }
+
+      checkBtn.disabled = true;
+      checkBtn.innerHTML = '<span class="spinner"></span> Checking...';
+
+      try {
+        const res = await fetch(`/match/${encodeURIComponent(poNumber)}`);
+        const data = await res.json();
+
+        matchResult.style.display = 'block';
+        matchJson.textContent = JSON.stringify(data, null, 2);
+
+        const statusClass = data.status === 'matched' ? 'status-matched'
+          : data.status === 'insufficient_documents' ? 'status-insufficient'
+          : 'status-mismatch';
+        matchStatus.innerHTML = `<p class="${statusClass}">Status: ${data.status.toUpperCase()}</p>`;
+      } catch (err) {
+        matchResult.style.display = 'block';
+        matchJson.textContent = 'Error: ' + err.message;
+      } finally {
+        checkBtn.disabled = false;
+        checkBtn.textContent = 'Check Match';
+      }
+    });
+
+    downloadBtn.addEventListener('click', async () => {
+      const poNumber = document.getElementById('poNumber').value.trim();
+      if (!poNumber) { alert('Enter a PO number'); return; }
+      window.open(`/match/${encodeURIComponent(poNumber)}/download`, '_blank');
+    });
+  </script>
+</body>
+</html>
