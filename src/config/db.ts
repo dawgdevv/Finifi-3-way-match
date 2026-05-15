@@ -6,7 +6,10 @@ export let dbConnected = false;
 
 export async function connectDB(): Promise<void> {
   try {
-    await mongoose.connect(MONGODB_URI);
+    await mongoose.connect(MONGODB_URI, {
+      serverSelectionTimeoutMS: 5000,
+      connectTimeoutMS: 5000,
+    });
     dbConnected = true;
     console.log('MongoDB connected');
   } catch (error) {
