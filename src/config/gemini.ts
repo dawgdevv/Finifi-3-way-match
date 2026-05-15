@@ -24,57 +24,73 @@ export function getGeminiModel() {
 }
 
 export const PROMPTS = {
-  po: `Extract the Purchase Order data from this document and return ONLY valid JSON (no markdown, no explanation, no code fences) matching this exact schema:
+  po: `Extract Purchase Order data. Return ONLY valid JSON, no markdown fences.
+
+IMPORTANT for itemCode: 
+- Most rows have a numeric item code printed before the description (e.g. "11797", "18003", "432518")
+- Some rows have NO item code. For those, generate a fallback using the first 3 words of description + quantity, like "desc:Chicken Drumsticks:270"
+- Never leave itemCode empty
+
+Schema:
 {
   "poNumber": "string",
   "poDate": "YYYY-MM-DD",
   "vendorName": "string",
-  "items": [
-    {
-      "itemCode": "string",
-      "description": "string",
-      "quantity": 0,
-      "unitPrice": 0,
-      "hsnCode": "string"
-    }
-  ]
-}
-Ensure itemCode is extracted for every item row. If a row has no visible item code, use the most recent item code from the same section.`,
+  "items": [{
+    "itemCode": "string",
+    "description": "string",
+    "quantity": 0,
+    "unitPrice": 0,
+    "hsnCode": "string"
+  }]
+}`,
 
-  grn: `Extract the Goods Receipt Note (GRN) data from this document and return ONLY valid JSON (no markdown, no explanation, no code fences) matching this exact schema:
+  grn: `Extract GRN data. Return ONLY valid JSON, no markdown fences.
+
+CRITICAL: Each item has TWO codes — extract BOTH:
+1. "itemCode": the numeric SKU code in the "SKU Code" column (e.g. "11423", "398656")
+2. "vendorItemCode": the vendor's alphanumeric code if shown (e.g. "FG-P-F-0503")
+
+Schema:
 {
   "grnNumber": "string",
-  "poNumber": "string",
+  "poNumber": "string", 
   "grnDate": "YYYY-MM-DD",
   "invoiceRef": "string",
-  "items": [
-    {
-      "itemCode": "string",
-      "description": "string",
-      "expectedQty": 0,
-      "receivedQty": 0
-    }
-  ]
+  "items": [{
+    "itemCode": "string",
+    "vendorItemCode": "string",
+    "description": "string",
+    "expectedQty": 0,
+    "receivedQty": 0
+  }]
 }
-If expectedQty is not shown separately, set it equal to receivedQty.`,
 
-  invoice: `Extract the Invoice data from this document and return ONLY valid JSON (no markdown, no explanation, no code fences) matching this exact schema:
+If expectedQty column is absent, set it equal to receivedQty.
+The poNumber field is labeled "PO No" on the document.`,
+
+  invoice: `Extract Invoice data. Return ONLY valid JSON, no markdown fences.
+
+The "Item Code" column contains codes like "FG-P-F-0503" or "FG-M-F-1703".
+The "Sr. No." column is just a row number — do NOT use it as itemCode.
+
+Schema:
 {
   "invoiceNumber": "string",
   "poNumber": "string",
   "invoiceDate": "YYYY-MM-DD",
   "vendorName": "string",
-  "items": [
-    {
-      "itemCode": "string",
-      "description": "string",
-      "quantity": 0,
-      "unitPrice": 0,
-      "taxableValue": 0
-    }
-  ]
+  "items": [{
+    "itemCode": "string",
+    "description": "string",
+    "quantity": 0,
+    "unitPrice": 0,
+    "taxableValue": 0
+  }]
 }
-If taxableValue is not shown separately, calculate it as quantity * unitPrice.`,
+
+The poNumber is in the field labeled "Customer Order No." on this document.
+If taxableValue is absent, calculate as quantity * unitPrice.`,
 };
 
 export type DocumentType = 'po' | 'grn' | 'invoice';

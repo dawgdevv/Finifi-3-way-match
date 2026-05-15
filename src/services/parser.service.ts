@@ -29,6 +29,29 @@ export async function parseDocument(
 
     const parsed = JSON.parse(clean);
 
+    // Normalize poNumber — it appears under different labels across docs
+    if (!parsed.poNumber && parsed.customerOrderNo) {
+      parsed.poNumber = parsed.customerOrderNo;
+    }
+
+    // Strip leading/trailing whitespace from all string fields at top level
+    for (const key of Object.keys(parsed)) {
+      if (typeof parsed[key] === 'string') {
+        parsed[key] = parsed[key].trim();
+      }
+    }
+
+    // Normalize date to ISO string immediately after parsing
+    const dateFields = ['poDate', 'grnDate', 'invoiceDate'];
+    for (const field of dateFields) {
+      if (parsed[field]) {
+        const d = new Date(parsed[field]);
+        if (!isNaN(d.getTime())) {
+          parsed[field] = d.toISOString().split('T')[0];
+        }
+      }
+    }
+
     // Validate item codes are present
     if (parsed.items && Array.isArray(parsed.items)) {
       parsed.items = parsed.items.filter((item: any) => {

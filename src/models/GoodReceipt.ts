@@ -2,10 +2,11 @@ import mongoose, { Schema } from 'mongoose';
 import type { Document } from 'mongoose';
 
 export interface IGRNItem {
-  itemCode: string;      // SKU key
+  itemCode: string;          // Numeric SKU code from GRN (e.g., "11423")
+  vendorItemCode: string;    // Vendor's alphanumeric code (e.g., "FG-P-F-0503")
   description: string;
-  expectedQty: number;   // From PO
-  receivedQty: number;   // Actual received
+  expectedQty: number;       // From PO
+  receivedQty: number;       // Actual received
 }
 
 export interface IGoodsReceipt extends Document {
@@ -19,6 +20,7 @@ export interface IGoodsReceipt extends Document {
 
 const GRNItemSchema = new Schema<IGRNItem>({
   itemCode: { type: String, required: true },
+  vendorItemCode: { type: String, default: '' },
   description: { type: String, required: true },
   expectedQty: { type: Number, required: true },
   receivedQty: { type: Number, required: true },
