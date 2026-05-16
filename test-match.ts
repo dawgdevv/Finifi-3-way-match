@@ -162,6 +162,40 @@ const poItems = [
   { itemCode: '507809', description: 'psmpizzaminischickentikka180.0gcolour:size:sizebrand:band_6', quantity: 50 },
 ];
 
+const grnItems = [
+  { itemCode: '11423', description: 'psmcheesyspicyvegmomos24.0pieces', receivedQty: 50 },
+  { itemCode: '11797', description: 'meatigohotwings250.0g', receivedQty: 75 },
+  { itemCode: '18003', description: 'meatigochickencurrycutskinlessfrozen450.0g', receivedQty: 30 },
+  { itemCode: '18004', description: 'meatigochickenbonelessbreastfrozen450.0g', receivedQty: 30 },
+  { itemCode: '205950', description: 'psmfrozenporkpepperonisalami100.0g', receivedQty: 40 },
+  { itemCode: '253430', description: 'psmporksalami200.0g', receivedQty: 75 },
+  { itemCode: '33387', description: 'psmfrozenchickenchillisalami200.0g', receivedQty: 75 },
+  { itemCode: '33390', description: 'psmchickenseekhkebab500.0g', receivedQty: 272 },
+  { itemCode: '398656', description: 'meatigochickendrumsticks450.0g', receivedQty: 270 },
+  { itemCode: '414867', description: 'psmchinesevegspringrolls240.0g', receivedQty: 25 },
+  { itemCode: '432518', description: 'meatigochickenkheema450.0g', receivedQty: 360 },
+  { itemCode: '4459', description: 'psmoriginalchickenmomos24.0pieces', receivedQty: 475 },
+  { itemCode: '4460', description: 'psmspicychickenmomos24.0pieces', receivedQty: 325 },
+  { itemCode: '4461', description: 'psmveg&paneermomos24.0pieces', receivedQty: 75 },
+  { itemCode: '453259', description: 'psmchickencheese&onionsausage250.0g', receivedQty: 40 },
+  { itemCode: '4694', description: 'psmoriginalchickenmomos10.0pieces', receivedQty: 450 },
+  { itemCode: '4697', description: 'psmveg&paneermomos10.0pieces', receivedQty: 400 },
+  { itemCode: '469735', description: 'meatigoeverydaychickenbreast(frozen)150.0g', receivedQty: 90 },
+  { itemCode: '4699', description: 'psmporksausage250.0g', receivedQty: 40 },
+  { itemCode: '4700', description: 'psmporkham200.0g', receivedQty: 50 },
+  { itemCode: '470663', description: 'psmwholewheatmomos-veg&paneer330.0g', receivedQty: 40 },
+  { itemCode: '49168', description: 'psmperiperivegmomos15.0pieces', receivedQty: 80 },
+  { itemCode: '498695', description: 'psmchickensalami200.0g', receivedQty: 25 },
+  { itemCode: '507809', description: 'psmpizzaminischickentikka180.0g', receivedQty: 50 },
+  { itemCode: '598770', description: 'psmporkbreakfastbacon150.0g', receivedQty: 36 },
+  { itemCode: '6664', description: 'psmchickensausages250.0g', receivedQty: 380 },
+  { itemCode: '730016', description: 'psmwholewheatchickenmomos330.0g', receivedQty: 80 },
+  { itemCode: '750414', description: 'psmsupersaverchickenmomopack(chefmomos)1.0kg', receivedQty: 72 },
+  { itemCode: '755774', description: 'psmchicken&cheesemomos540.0g', receivedQty: 25 },
+  { itemCode: '790919', description: 'meatigoeverydayfishfillet200.0g', receivedQty: 30 },
+  { itemCode: '81521', description: 'psmperiperichickenmomos250.0g', receivedQty: 640 },
+];
+
 const invItems = [
   { itemCode: 'FG-P-F-0503', numericSku: '19022010', description: 'psmcheesyspicyvegetablemomos24pcs', quantity: 50 },
   { itemCode: 'FG-M-F-1703', numericSku: '16023200', description: 'meatigortcmeatigohotwings250g', quantity: 75 },
@@ -322,6 +356,95 @@ console.log(`\n=== Results ===`);
 console.log(`Correct:   ${matched}/${invItems.length}`);
 console.log(`Wrong:     ${wrong}/${invItems.length}`);
 console.log(`Unmatched: ${unmatched}/${invItems.length}`);
+
+/* ------------------------------------------------------------------ */
+/*  Build unified rows and show shortfallItems                            */
+/* ------------------------------------------------------------------ */
+
+interface UnifiedItem {
+  code: string;
+  bestDesc: string;
+  poQty: number;
+  grnQty: number;
+  invQty: number;
+}
+
+const rows = new Map<string, UnifiedItem>();
+
+// Index PO
+for (const item of poItems) {
+  const code = item.itemCode?.toString().trim();
+  if (!code) continue;
+  rows.set(code, {
+    code,
+    bestDesc: item.description,
+    poQty: item.quantity ?? 0,
+    grnQty: 0,
+    invQty: 0,
+  });
+}
+
+// Index GRN
+for (const item of grnItems) {
+  const code = item.itemCode?.toString().trim();
+  if (!code) continue;
+  if (rows.has(code)) {
+    rows.get(code)!.grnQty += item.receivedQty || 0;
+  } else {
+    rows.set(code, {
+      code,
+      bestDesc: item.description,
+      poQty: 0,
+      grnQty: item.receivedQty || 0,
+      invQty: 0,
+    });
+  }
+}
+
+// Index Invoice (using the resolution logic)
+for (const inv of invItems) {
+  const code = resolveItemCode(inv.itemCode, inv.description, inv.numericSku, inv.quantity, poMap);
+  if (code && rows.has(code)) {
+    rows.get(code)!.invQty += inv.quantity || 0;
+  } else {
+    rows.set(`INV-${inv.itemCode}`, {
+      code: `INV-${inv.itemCode}`,
+      bestDesc: inv.description,
+      poQty: 0,
+      grnQty: 0,
+      invQty: inv.quantity || 0,
+    });
+  }
+}
+
+const unified = Array.from(rows.values());
+
+console.log('\n=== Shortfall Items (only actual discrepancies) ===\n');
+let shortfallCount = 0;
+for (const u of unified) {
+  const shortfall = Math.max(0, u.poQty - u.grnQty);
+  const hasDiscrepancy =
+    shortfall > 0 ||
+    u.invQty > u.grnQty ||
+    u.grnQty > u.poQty ||
+    (u.poQty === 0 && (u.grnQty > 0 || u.invQty > 0));
+
+  if (hasDiscrepancy) {
+    shortfallCount++;
+    const reasons: string[] = [];
+    if (shortfall > 0) reasons.push(`shortReceived=${shortfall}`);
+    if (u.invQty > u.grnQty) reasons.push(`overInvoiced=${u.invQty - u.grnQty}`);
+    if (u.grnQty > u.poQty) reasons.push(`overReceived=${u.grnQty - u.poQty}`);
+    if (u.poQty === 0 && (u.grnQty > 0 || u.invQty > 0)) reasons.push('missingInPO');
+
+    console.log(`${u.code}`);
+    console.log(`  PO=${u.poQty}  GRN=${u.grnQty}  INV=${u.invQty}`);
+    console.log(`  Reasons: ${reasons.join(', ')}`);
+    console.log();
+  }
+}
+
+console.log(`Total items with discrepancies: ${shortfallCount}/${unified.length}`);
 
 if (wrong === 0 && unmatched === 0) {
   console.log('\n🎉 All invoice items mapped correctly!');

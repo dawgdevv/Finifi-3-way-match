@@ -355,14 +355,22 @@ function runRules(
     const desc = u.bestDesc || u.code;
     const shortfall = Math.max(0, u.poQty - u.grnQty);
 
-    shortfallItems.push({
-      itemCode: u.code,
-      description: desc,
-      poQty: u.poQty,
-      grnQty: u.grnQty,
-      invoiceQty: u.invQty,
-      shortfall,
-    });
+    const hasDiscrepancy =
+      shortfall > 0 ||
+      u.invQty > u.grnQty ||
+      u.grnQty > u.poQty ||
+      (u.poQty === 0 && (u.grnQty > 0 || u.invQty > 0));
+
+    if (hasDiscrepancy) {
+      shortfallItems.push({
+        itemCode: u.code,
+        description: desc,
+        poQty: u.poQty,
+        grnQty: u.grnQty,
+        invoiceQty: u.invQty,
+        shortfall,
+      });
+    }
 
     if (u.grnQty > u.poQty) {
       mismatches.push(
