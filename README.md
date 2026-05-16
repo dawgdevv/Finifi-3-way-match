@@ -4,84 +4,60 @@
 
 ---
 
-## 1. Problem Statement
+## 1. Approach
 
-A common pain-point in procurement is that **Purchase Orders (PO)**, **Goods Receipt Notes (GRN)**, and **Invoices** often refer to the *same physical item* using **completely different codes**:
+### The Problem
+
+In procurement, the same physical item is often referenced using **completely different codes** across documents:
 
 | Document | Item Code Format | Example |
 |----------|-----------------|---------|
-| PO | Numeric SKU | `11423` |
-| GRN | Numeric SKU (matches PO) | `11423` |
+| PO | Internal numeric SKU | `11423` |
+| GRN | Internal numeric SKU (matches PO) | `11423` |
 | Invoice | Vendor FG-code + HSN | `FG-P-F-0503` / `19022010` |
 
-Because the invoice uses vendor-specific `FG-*` codes while PO/GRN use internal numeric SKUs, a naive `itemCode === itemCode` comparison fails for **100 % of invoice lines**. Every invoice item shows as "missing in GRN" (`grn=0`), even when the product descriptions are semantically identical.
+Because PO/GRN use numeric SKUs while invoices use vendor-specific `FG-*` codes, a naive `itemCode === itemCode` comparison fails for **100 % of invoice lines**. Every invoice item shows as "missing in GRN" even when the product descriptions are semantically identical.
 
 ### The Core Challenge
 
-**How do you match documents when the only reliable shared identifier is a human-readable description, and those descriptions are:**
-- Concatenated without spaces (`psmcheesyspicyvegmomos24.0pieces`)
-- Buried in brand/size noise (`colour:size:sizebrand:band_2`)
-- Using inconsistent abbreviations (`veg` vs `vegetable`, `pcs` vs `pieces`)
-- Sometimes reordered (`psmspringroll-chineseveg` vs `psmchinesevegspringrolls`)
+The only reliable shared identifier is the **human-readable description**, but these descriptions are:
+- Concatenated without spaces: `psmcheesyspicyvegmomos24.0pieces`
+- Buried in brand/size noise: `colour:size:sizebrand:band_2`
+- Using inconsistent abbreviations: `veg` vs `vegetable`, `pcs` vs `pieces`
+- Sometimes reordered: `psmspringroll-chineseveg` vs `psmchinesevegspringrolls`
 
----
+### Iterative Journey
 
-## 2. Iterative Journey
-
-### Attempt 1 — Naïve Exact-Match (Broken)
-
-**What we tried:**
+**Attempt 1 — Naïve Exact-Match (Broken)**
 - Aggregate quantities by exact `itemCode` per document
-- Compare `invoiceQty[sku]` against `grnQty[sku]`
+- Compare `invoiceQty[sku]` vs `grnQty[sku]`
+- **Failed:** Invoice uses `FG-P-F-0503`, GRN uses `11423` → `grnMap['FG-P-F-0503']` is `undefined`
+- Result: **30 false mismatches**, status: `mismatch` with no actionable insight
 
-**Why it failed:**
-- Invoice uses `FG-P-F-0503`, GRN uses `11423` → `grnMap['FG-P-F-0503']` is `undefined`
-- Result: **30 false mismatches** (`invoice_qty_exceeds_grn_qty` for every line)
-- Status: `mismatch` with no actionable insight
-
-### Attempt 2 — Normalized Description Exact Match (Partial)
-
-**What we tried:**
+**Attempt 2 — Normalized Description Exact Match (Partial)**
 - Strip numbers/units/brands from descriptions
 - Create a 4-word signature (`cheesy momos psm spicy`)
 - Match by exact signature equality
+- **Partially Failed:** `psmcheesyspicyvegmomos` (PO) and `psmcheesyspicyvegetablemomos` (Invoice) were different signatures because `veg` wasn't expanded inside concatenated words
+- Result: ~50 % match rate
 
-**Why it partially failed:**
-- `psmcheesyspicyvegmomos` (PO) and `psmcheesyspicyvegetablemomos` (Invoice) were **different signatures** because `veg` wasn't expanded inside a concatenated word
-- Word-splitting on spaces doesn't work when the source has **no spaces at all**
-- Result: ~50 % match rate; many invoice items became orphan rows
-
-### Attempt 3 — Levenshtein Distance on Cleaned Strings (Better)
-
-**What we tried:**
+**Attempt 3 — Levenshtein Distance on Cleaned Strings (Better)**
 - Clean both descriptions identically (remove noise, expand abbreviations)
 - Compute Levenshtein distance between cleaned strings
-- Pick the PO item with the highest similarity above a threshold
+- Pick the PO item with highest similarity above threshold
+- **Better but flawed:** Couldn't distinguish variants of the same product (e.g., `psmchickenmomos24pcs` qty 475 vs `psmperiperichickenmomos250g` qty 640 both scored ~0.77)
+- Result: ~75 % match rate
 
-**Why it was better but still flawed:**
-- Abbreviation expansion in the **raw string before splitting** solved the concatenated-word problem (`vegmomos` → `vegetablemomos`)
-- Levenshtein handled minor typos and missing words well
-- **But** it couldn't distinguish variants of the same product:
-  - `psmchickenmomos24pcs` (475 qty) vs `psmperiperichickenmomos250g` (640 qty)
-  - Both scored ~0.77 similarity; the wrong one sometimes won
-
-### Attempt 4 — Levenshtein + Quantity Tie-Breaker (Current / Production)
-
-**What we do now:**
-1. **Clean & segment** descriptions into canonical keyword signatures
-2. **Compute Levenshtein similarity** between invoice and every PO/GRN signature
-3. **Add a quantity tie-breaker bonus** (+0.15 for exact qty match, +0.08 for close match)
-4. Pick the candidate with the highest composite score, but **still require base description similarity ≥ 0.65**
-
-**Result:**
-- **27/31** invoice items map correctly to their PO/GRN counterparts
-- The 4 remaining edge cases are **genuinely ambiguous** due to missing data in the PO (see Tradeoffs)
+**Attempt 4 — Levenshtein + Quantity Tie-Breaker (Production)**
+1. Clean & segment descriptions into canonical keyword signatures
+2. Compute Levenshtein similarity between invoice and every PO/GRN signature
+3. Add a quantity tie-breaker bonus (+0.15 for exact qty match, +0.08 for close match)
+4. Pick candidate with highest composite score, but still require base similarity ≥ 0.65
+- Result: **27/31** invoice items map correctly
 
 ---
 
-## 3. Architecture
-
-### 3.1 Data Model
+## 2. Data Model
 
 ```
 PurchaseOrder
@@ -124,14 +100,20 @@ MatchResult
   checkedAt: Date
 ```
 
-### 3.2 Parsing Flow
+---
+
+## 3. Parsing Flow
 
 1. **Upload** → Multer saves PDF/image to disk
 2. **OCR** → Gemini Vision extracts structured JSON (`rawText`)
 3. **Persist** → Raw document + parsed items saved to MongoDB
 4. **Trigger Match** → `runMatch(poNumber)` invoked automatically or on-demand
 
-### 3.3 Matching Logic (Detailed)
+---
+
+## 4. Matching Logic
+
+### 4.1 Build Unified Item Registry
 
 ```
 Step 1: Build Unified Item Registry
@@ -147,21 +129,9 @@ Step 1: Build Unified Item Registry
          - compositeScore = similarity + qtyBonus
          - qtyBonus = +0.15 if invoice.qty == po.qty, +0.08 if within 10
       e) Accept if base similarity ≥ 0.65
-
-Step 2: Run Validation Rules on Unified Rows
-  Rule 1: GRN qty ≤ PO qty per item
-  Rule 2: Invoice qty ≤ GRN qty per item
-  Rule 3: Invoice qty ≤ PO qty per item
-  Rule 4: Invoice date ≥ PO date
-  Rule 5: Item appears in GRN/Invoice but not in PO
-
-Step 3: Compute Summary & Shortfall
-  shortfall = max(0, poQty - grnQty)
-
-Step 4: Persist Full MatchResult
 ```
 
-### 3.4 Canonical Signature Pipeline
+### 4.2 Canonical Signature Pipeline
 
 Given a raw description:
 
@@ -183,11 +153,34 @@ Given a raw description:
    canonical = "cheesy momos psm spicy vegetable"
    ```
 
-This makes PO, GRN, and Invoice descriptions **directly comparable** even when they started as completely different strings.
+This makes PO, GRN, and Invoice descriptions directly comparable even when they started as completely different strings.
+
+### 4.3 Validation Rules
+
+Run on the unified rows:
+
+- **Rule 1**: GRN qty ≤ PO qty per item
+- **Rule 2**: Invoice qty ≤ GRN qty per item
+- **Rule 3**: Invoice qty ≤ PO qty per item
+- **Rule 4**: Invoice date ≥ PO date
+- **Rule 5**: Item appears in GRN/Invoice but not in PO
+
+### 4.4 Shortfall Items
+
+An item appears in `shortfallItems` **only if it has an actual discrepancy**:
+
+| Condition | Meaning |
+|-----------|---------|
+| `poQty > grnQty` | Short received (ordered more than received) |
+| `invQty > grnQty` | Over-invoiced (billed more than received) |
+| `grnQty > poQty` | Over-received (received more than ordered) |
+| `poQty === 0` | Missing in PO (item in GRN/Invoice but not in PO) |
+
+Only items meeting at least one condition are included, making the list actionable.
 
 ---
 
-## 4. Handling Out-of-Order Uploads
+## 5. How Out-of-Order Uploads Are Handled
 
 The engine is designed to handle uploads arriving in **any order**:
 
@@ -204,7 +197,7 @@ The engine is designed to handle uploads arriving in **any order**:
 
 ---
 
-## 5. Assumptions
+## 6. Assumptions
 
 1. **PO is the source of truth** — items not found in PO but present in GRN/Invoice are flagged as `item_missing_in_po`
 2. **Same vendor per PO** — we don't cross-match vendors
@@ -215,7 +208,7 @@ The engine is designed to handle uploads arriving in **any order**:
 
 ---
 
-## 6. Tradeoffs
+## 7. Tradeoffs
 
 | Tradeoff | Decision | Rationale |
 |----------|----------|-----------|
@@ -228,9 +221,9 @@ The engine is designed to handle uploads arriving in **any order**:
 
 ---
 
-## 7. What Would Be Improved with More Time
+## 8. What Would Be Improved with More Time
 
-### 7.1 Confidence Scoring & Human-in-the-Loop
+### 8.1 Confidence Scoring & Human-in-the-Loop
 
 Instead of a hard `0.65` threshold, return a **confidence tier** for each match:
 
@@ -241,7 +234,7 @@ Instead of a hard `0.65` threshold, return a **confidence tier** for each match:
 
 Build a small UI that shows medium-confidence matches side-by-side for an operator to approve/reject before finalising the `MatchResult`.
 
-### 7.2 Learned Mappings Table
+### 8.2 Learned Mappings Table
 
 When an operator (or the qty tie-breaker) confirms that `FG-P-F-0503` maps to `11423`, store that mapping in a `skuMappings` collection:
 
@@ -251,27 +244,27 @@ When an operator (or the qty tie-breaker) confirms that `FG-P-F-0503` maps to `1
 
 Next invoice from the same vendor → **exact code match** in O(1), no Levenshtein needed.
 
-### 7.3 Semantic Embeddings for Edge Cases
+### 8.3 Semantic Embeddings for Edge Cases
 
 For the ~4 genuinely ambiguous items (e.g., invoice says `"chicken momos"` without specifying original/spicy/peri-peri), a small sentence-transformer model or OpenAI embedding would capture semantics better than keyword Levenshtein. The current dictionary approach cannot distinguish `"chicken momos"` from `"peri peri chicken momos"` when the invoice omits the flavour.
 
-### 7.4 Weighted Price Comparison
+### 8.4 Weighted Price Comparison
 
 Currently we match on description + quantity. Adding **unitPrice** as a validation signal would help catch:
 - Invoice price ≠ PO price (common vendor error)
 - Price drift over time
 
-### 7.5 Multi-GRN / Multi-Invoice Partial Matching
+### 8.5 Multi-GRN / Multi-Invoice Partial Matching
 
 The current `shortfall` logic is item-level. A useful enhancement would be **shipment-level tracking**: "GRN #1 delivered 30/120 curry cuts, GRN #2 delivered the remaining 90." This requires linking individual GRN line items to PO line items with persistent IDs, not just aggregating by code.
 
-### 7.6 NLP-Powered Segmentation
+### 8.6 NLP-Powered Segmentation
 
 Replace the greedy dictionary segmenter with a lightweight NLP model or regex-based camelCase segmenter. This would reduce maintenance of the `DICT` word list and handle new product names (e.g., `"tandoori momos"`) automatically.
 
 ---
 
-## 8. Validation Results (Sample Data)
+## 9. Validation Results (Sample Data)
 
 On the real-world sample provided (`CI4PO05788`):
 
@@ -288,7 +281,7 @@ On the real-world sample provided (`CI4PO05788`):
 
 ---
 
-## 9. How to Run
+## 10. How to Run
 
 ```bash
 # Install dependencies
@@ -303,7 +296,7 @@ npm run dev
 
 ---
 
-## 10. Files of Interest
+## 11. Files of Interest
 
 | File | Purpose |
 |------|---------|
