@@ -52,11 +52,47 @@ export async function parseDocument(
       }
     }
 
-    // Validate item codes are present
+    // Normalize items
     if (parsed.items && Array.isArray(parsed.items)) {
+      for (const item of parsed.items) {
+        // Normalize sku -> itemCode
+        if (!item.itemCode && item.sku) {
+          item.itemCode = item.sku;
+        }
+        // Normalize vendorSku -> vendorItemCode
+        if (!item.vendorItemCode && item.vendorSku) {
+          item.vendorItemCode = item.vendorSku;
+        }
+        // Normalize receivedQuantity -> receivedQty
+        if (item.receivedQty === undefined && item.receivedQuantity !== undefined) {
+          item.receivedQty = item.receivedQuantity;
+        }
+        // Normalize expectedQuantity -> expectedQty
+        if (item.expectedQty === undefined && item.expectedQuantity !== undefined) {
+          item.expectedQty = item.expectedQuantity;
+        }
+        // Default expectedQty to receivedQty if still missing (GRN often omits expected)
+        if (item.expectedQty === undefined && item.receivedQty !== undefined) {
+          item.expectedQty = item.receivedQty;
+        }
+        // Normalize rate -> unitPrice (invoice often uses "rate")
+        if (item.unitPrice === undefined && item.rate !== undefined) {
+          item.unitPrice = item.rate;
+        }
+        // Normalize description: lowercase and strip all spaces for uniform matching
+        if (typeof item.description === 'string') {
+          item.description = item.description
+            .toLowerCase()
+            .replace(/\s+/g, '');
+        }
+      }
+
+      // Only drop items if both itemCode and description are missing
       parsed.items = parsed.items.filter((item: any) => {
-        if (!item.itemCode || item.itemCode.trim() === '') {
-          console.warn(`Skipping item without itemCode in ${docType}:`, item);
+        const hasCode = item.itemCode && item.itemCode.toString().trim() !== '';
+        const hasDesc = item.description && item.description.toString().trim() !== '';
+        if (!hasCode && !hasDesc) {
+          console.warn(`Skipping item without itemCode and description in ${docType}:`, item);
           return false;
         }
         return true;

@@ -50,7 +50,12 @@ router.get('/:poNumber/download', async (req: Request, res: Response, next: Next
       reportGeneratedAt: new Date().toISOString(),
       poNumber: matchResult.poNumber,
       status: matchResult.status,
+      summary: matchResult.summary,
       mismatches: matchResult.mismatches,
+      reasons: matchResult.reasons,
+      ruleResults: matchResult.ruleResults,
+      decision: matchResult.decision,
+      shortfallItems: matchResult.shortfallItems,
       linkedDocuments: matchResult.linkedDocs,
     };
 

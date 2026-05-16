@@ -3,10 +3,11 @@ import type { Document } from 'mongoose';
 
 export interface IGRNItem {
   itemCode: string;          // Numeric SKU code from GRN (e.g., "11423")
-  vendorItemCode: string;    // Vendor's alphanumeric code (e.g., "FG-P-F-0503")
+  vendorItemCode: string;    // Vendor's alphanumeric / vendorSku code
   description: string;
-  expectedQty: number;       // From PO
+  expectedQty?: number;      // From PO (optional — not needed for matching)
   receivedQty: number;       // Actual received
+  unitPrice: number;          // Unit price per item
 }
 
 export interface IGoodsReceipt extends Document {
@@ -22,8 +23,9 @@ const GRNItemSchema = new Schema<IGRNItem>({
   itemCode: { type: String, required: true },
   vendorItemCode: { type: String, default: '' },
   description: { type: String, required: true },
-  expectedQty: { type: Number, required: true },
+  expectedQty: { type: Number, default: 0 },
   receivedQty: { type: Number, required: true },
+  unitPrice: { type: Number, default: 0 },
 });
 
 const GoodsReceiptSchema = new Schema<IGoodsReceipt>({
