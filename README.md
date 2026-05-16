@@ -309,11 +309,16 @@ cp .env.example .env
 
 # Start MongoDB (local or Atlas connection)
 npm run dev
-
-# Upload documents (PO, GRN, Invoice) via POST /api/documents/upload
-# Matching runs automatically after each upload
-# Or trigger manually: POST /api/match/:poNumber
 ```
+
+**Available endpoints once running:**
+
+| URL | Purpose |
+|-----|---------|
+| `http://localhost:3000` | **Upload UI** — Web interface to upload PO, GRN, and Invoice documents |
+| `http://localhost:3000/api-docs` | **Swagger UI** — Interactive API documentation and test interface |
+| `POST /api/documents/upload` | Upload a PDF (PO, GRN, or Invoice). Matching runs automatically |
+| `POST /api/match/:poNumber` | Trigger match manually for a given PO number |
 
 ---
 
@@ -325,3 +330,13 @@ npm run dev
 | `src/models/MatchResult.ts` | Full result schema with ruleResults, shortfallItems, summary |
 | `src/models/Invoice.ts` | Includes `numericSku` field for HSN / potential SKU bridge |
 | `test-match.ts` | Standalone validation script for the canonical signature pipeline |
+| `sample_json/` | Sample parsed documents (PO, GRN, Invoice) and final `match_result.json` output |
+
+### Sample JSON Outputs
+
+The `sample_json/` directory contains real-world examples of parsed and processed data:
+
+- **`PO.json`** — Parsed Purchase Order with items, quantities, and raw descriptions
+- **`GRN.json`** — Parsed Goods Receipt Note with received quantities
+- **`Invoice.json`** — Parsed Invoice with vendor FG-codes and HSN numeric SKUs
+- **`match_result.json`** — Final three-way match output including mismatches, shortfall items, rule results, and summary
