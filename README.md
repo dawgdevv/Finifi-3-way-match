@@ -4,6 +4,16 @@
 
 ---
 
+## Live Demo
+
+**Deployed Application:** https://finifi-3-way-match.onrender.com
+
+> **Note:** This is deployed on Render's free tier. The instance may spin down after periods of inactivity, so the first request after a while may take ~30–60 seconds to wake up. For development or heavy testing, running locally is recommended.
+
+---
+
+![alt text](image.png)
+
 ## 1. Approach
 
 ### The Problem
@@ -283,15 +293,26 @@ On the real-world sample provided (`CI4PO05788`):
 
 ## 10. How to Run
 
+### Using the Deployed App
+Visit https://finifi-3-way-match.onrender.com to use the live application.
+
+> **Note:** Render's free tier spins down after inactivity. The first request may take 30–60 seconds to wake up.
+
+### Running Locally (Recommended for Development)
+
 ```bash
-# Install dependencies
+# Clone and install
 npm install
 
-# Start MongoDB (local or Atlas)
+# Set up environment variables (MongoDB URI, etc.)
+cp .env.example .env
+
+# Start MongoDB (local or Atlas connection)
 npm run dev
 
-# Upload documents (PO, GRN, Invoice) via /api/documents
-# Matching runs automatically or hit /api/match/:poNumber
+# Upload documents (PO, GRN, Invoice) via POST /api/documents/upload
+# Matching runs automatically after each upload
+# Or trigger manually: POST /api/match/:poNumber
 ```
 
 ---
