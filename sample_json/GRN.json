@@ -1,0 +1,358 @@
+{
+  "_id": {
+    "$oid": "6a0839f83a589d614550441a"
+  },
+  "grnNumber": "CI4000020234",
+  "poNumber": "CI4PO05788",
+  "grnDate": {
+    "$date": "2026-03-24T00:00:00.000Z"
+  },
+  "invoiceRef": "",
+  "items": [
+    {
+      "itemCode": "11423",
+      "vendorItemCode": "11423",
+      "description": "psmcheesyspicyvegmomos24.0pieces",
+      "expectedQty": 50,
+      "receivedQty": 50,
+      "unitPrice": 220.76,
+      "_id": {
+        "$oid": "6a0839f83a589d614550441b"
+      }
+    },
+    {
+      "itemCode": "11797",
+      "vendorItemCode": "11797",
+      "description": "meatigohotwings250.0g",
+      "expectedQty": 75,
+      "receivedQty": 75,
+      "unitPrice": 126.67,
+      "_id": {
+        "$oid": "6a0839f83a589d614550441c"
+      }
+    },
+    {
+      "itemCode": "18003",
+      "vendorItemCode": "18003",
+      "description": "meatigochickencurrycutskinlessfrozen450.0g",
+      "expectedQty": 30,
+      "receivedQty": 30,
+      "unitPrice": 141.14,
+      "_id": {
+        "$oid": "6a0839f83a589d614550441d"
+      }
+    },
+    {
+      "itemCode": "18004",
+      "vendorItemCode": "18004",
+      "description": "meatigochickenbonelessbreastfrozen450.0g",
+      "expectedQty": 30,
+      "receivedQty": 30,
+      "unitPrice": 199.05,
+      "_id": {
+        "$oid": "6a0839f83a589d614550441e"
+      }
+    },
+    {
+      "itemCode": "205950",
+      "vendorItemCode": "205950",
+      "description": "psmfrozenporkpepperonisalami100.0g",
+      "expectedQty": 40,
+      "receivedQty": 40,
+      "unitPrice": 133.91,
+      "_id": {
+        "$oid": "6a0839f83a589d614550441f"
+      }
+    },
+    {
+      "itemCode": "253430",
+      "vendorItemCode": "253430",
+      "description": "psmporksalami200.0g",
+      "expectedQty": 75,
+      "receivedQty": 75,
+      "unitPrice": 188.19,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504420"
+      }
+    },
+    {
+      "itemCode": "33387",
+      "vendorItemCode": "33387",
+      "description": "psmfrozenchickenchillisalami200.0g",
+      "expectedQty": 75,
+      "receivedQty": 75,
+      "unitPrice": 126.67,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504421"
+      }
+    },
+    {
+      "itemCode": "33390",
+      "vendorItemCode": "33390",
+      "description": "psmchickenseekhkebab500.0g",
+      "expectedQty": 272,
+      "receivedQty": 272,
+      "unitPrice": 228,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504422"
+      }
+    },
+    {
+      "itemCode": "398656",
+      "vendorItemCode": "398656",
+      "description": "meatigochickendrumsticks450.0g",
+      "expectedQty": 270,
+      "receivedQty": 270,
+      "unitPrice": 188.19,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504423"
+      }
+    },
+    {
+      "itemCode": "414867",
+      "vendorItemCode": "414867",
+      "description": "psmchinesevegspringrolls240.0g",
+      "expectedQty": 25,
+      "receivedQty": 25,
+      "unitPrice": 119.43,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504424"
+      }
+    },
+    {
+      "itemCode": "432518",
+      "vendorItemCode": "432518",
+      "description": "meatigochickenkheema450.0g",
+      "expectedQty": 360,
+      "receivedQty": 360,
+      "unitPrice": 199.05,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504425"
+      }
+    },
+    {
+      "itemCode": "4459",
+      "vendorItemCode": "4459",
+      "description": "psmoriginalchickenmomos24.0pieces",
+      "expectedQty": 475,
+      "receivedQty": 475,
+      "unitPrice": 220.76,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504426"
+      }
+    },
+    {
+      "itemCode": "4460",
+      "vendorItemCode": "4460",
+      "description": "psmspicychickenmomos24.0pieces",
+      "expectedQty": 325,
+      "receivedQty": 325,
+      "unitPrice": 220.76,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504427"
+      }
+    },
+    {
+      "itemCode": "4461",
+      "vendorItemCode": "4461",
+      "description": "psmveg&paneermomos24.0pieces",
+      "expectedQty": 75,
+      "receivedQty": 75,
+      "unitPrice": 202.67,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504428"
+      }
+    },
+    {
+      "itemCode": "453259",
+      "vendorItemCode": "453259",
+      "description": "psmchickencheese&onionsausage250.0g",
+      "expectedQty": 40,
+      "receivedQty": 40,
+      "unitPrice": 144.76,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504429"
+      }
+    },
+    {
+      "itemCode": "4694",
+      "vendorItemCode": "4694",
+      "description": "psmoriginalchickenmomos10.0pieces",
+      "expectedQty": 450,
+      "receivedQty": 450,
+      "unitPrice": 133.91,
+      "_id": {
+        "$oid": "6a0839f83a589d614550442a"
+      }
+    },
+    {
+      "itemCode": "4697",
+      "vendorItemCode": "4697",
+      "description": "psmveg&paneermomos10.0pieces",
+      "expectedQty": 400,
+      "receivedQty": 400,
+      "unitPrice": 112.19,
+      "_id": {
+        "$oid": "6a0839f83a589d614550442b"
+      }
+    },
+    {
+      "itemCode": "469735",
+      "vendorItemCode": "469735",
+      "description": "meatigoeverydaychickenbreast(frozen)150.0g",
+      "expectedQty": 90,
+      "receivedQty": 90,
+      "unitPrice": 119.43,
+      "_id": {
+        "$oid": "6a0839f83a589d614550442c"
+      }
+    },
+    {
+      "itemCode": "4699",
+      "vendorItemCode": "4699",
+      "description": "psmporksausage250.0g",
+      "expectedQty": 40,
+      "receivedQty": 40,
+      "unitPrice": 170.1,
+      "_id": {
+        "$oid": "6a0839f83a589d614550442d"
+      }
+    },
+    {
+      "itemCode": "4700",
+      "vendorItemCode": "4700",
+      "description": "psmporkham200.0g",
+      "expectedQty": 50,
+      "receivedQty": 50,
+      "unitPrice": 177.33,
+      "_id": {
+        "$oid": "6a0839f83a589d614550442e"
+      }
+    },
+    {
+      "itemCode": "470663",
+      "vendorItemCode": "470663",
+      "description": "psmwholewheatmomos-veg&paneer330.0g",
+      "expectedQty": 40,
+      "receivedQty": 40,
+      "unitPrice": 162.86,
+      "_id": {
+        "$oid": "6a0839f83a589d614550442f"
+      }
+    },
+    {
+      "itemCode": "49168",
+      "vendorItemCode": "49168",
+      "description": "psmperiperivegmomos15.0pieces",
+      "expectedQty": 80,
+      "receivedQty": 80,
+      "unitPrice": 88.67,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504430"
+      }
+    },
+    {
+      "itemCode": "498695",
+      "vendorItemCode": "498695",
+      "description": "psmchickensalami200.0g",
+      "expectedQty": 25,
+      "receivedQty": 25,
+      "unitPrice": 137.52,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504431"
+      }
+    },
+    {
+      "itemCode": "507809",
+      "vendorItemCode": "507809",
+      "description": "psmpizzaminischickentikka180.0g",
+      "expectedQty": 50,
+      "receivedQty": 50,
+      "unitPrice": 115.09,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504432"
+      }
+    },
+    {
+      "itemCode": "598770",
+      "vendorItemCode": "598770",
+      "description": "psmporkbreakfastbacon150.0g",
+      "expectedQty": 36,
+      "receivedQty": 36,
+      "unitPrice": 152,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504433"
+      }
+    },
+    {
+      "itemCode": "6664",
+      "vendorItemCode": "6664",
+      "description": "psmchickensausages250.0g",
+      "expectedQty": 380,
+      "receivedQty": 380,
+      "unitPrice": 130.29,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504434"
+      }
+    },
+    {
+      "itemCode": "730016",
+      "vendorItemCode": "730016",
+      "description": "psmwholewheatchickenmomos330.0g",
+      "expectedQty": 80,
+      "receivedQty": 80,
+      "unitPrice": 170.1,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504435"
+      }
+    },
+    {
+      "itemCode": "750414",
+      "vendorItemCode": "750414",
+      "description": "psmsupersaverchickenmomopack(chefmomos)1.0kg",
+      "expectedQty": 72,
+      "receivedQty": 72,
+      "unitPrice": 247.62,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504436"
+      }
+    },
+    {
+      "itemCode": "755774",
+      "vendorItemCode": "755774",
+      "description": "psmchicken&cheesemomos540.0g",
+      "expectedQty": 25,
+      "receivedQty": 25,
+      "unitPrice": 238.86,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504437"
+      }
+    },
+    {
+      "itemCode": "790919",
+      "vendorItemCode": "790919",
+      "description": "meatigoeverydayfishfillet200.0g",
+      "expectedQty": 30,
+      "receivedQty": 30,
+      "unitPrice": 188.19,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504438"
+      }
+    },
+    {
+      "itemCode": "81521",
+      "vendorItemCode": "81521",
+      "description": "psmperiperichickenmomos250.0g",
+      "expectedQty": 640,
+      "receivedQty": 640,
+      "unitPrice": 72.02,
+      "_id": {
+        "$oid": "6a0839f83a589d6145504439"
+      }
+    }
+  ],
+  "uploadedAt": {
+    "$date": "2026-05-16T09:33:44.141Z"
+  },
+  "__v": 0
+}

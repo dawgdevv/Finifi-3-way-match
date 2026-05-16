@@ -1,0 +1,358 @@
+{
+  "_id": {
+    "$oid": "6a083a413a589d6145504488"
+  },
+  "invoiceNumber": "IN25MH2504251",
+  "poNumber": "CI4PO05788",
+  "invoiceDate": {
+    "$date": "2026-03-24T00:00:00.000Z"
+  },
+  "vendorName": "M/s AFP",
+  "items": [
+    {
+      "itemCode": "FG-P-F-0503",
+      "numericSku": "",
+      "description": "psmcheesyspicyvegetablemomos24pcs",
+      "quantity": 50,
+      "unitPrice": 220.76,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d6145504489"
+      }
+    },
+    {
+      "itemCode": "FG-M-F-1703",
+      "numericSku": "",
+      "description": "meatigortcmeatigohotwings250g",
+      "quantity": 75,
+      "unitPrice": 126.67,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d614550448a"
+      }
+    },
+    {
+      "itemCode": "FG-M-F-0620",
+      "numericSku": "",
+      "description": "meatigochickencurrycuts450g(5%)",
+      "quantity": 30,
+      "unitPrice": 141.14,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d614550448b"
+      }
+    },
+    {
+      "itemCode": "FG-M-F-0619",
+      "numericSku": "",
+      "description": "meatigochickenbonelessbreast450g(5%)",
+      "quantity": 30,
+      "unitPrice": 199.05,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d614550448c"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0249",
+      "numericSku": "",
+      "description": "psmporkplainsalami200g",
+      "quantity": 75,
+      "unitPrice": 188.19,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d614550448d"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0234",
+      "numericSku": "",
+      "description": "psmfrozenchickenchillisalami200g",
+      "quantity": 75,
+      "unitPrice": 126.67,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d614550448e"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0413",
+      "numericSku": "",
+      "description": "psmfrozenchickenseekhkabab500g",
+      "quantity": 272,
+      "unitPrice": 228,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d614550448f"
+      }
+    },
+    {
+      "itemCode": "FG-M-F-0602",
+      "numericSku": "",
+      "description": "meatigochickendrumsticks450g(5%)",
+      "quantity": 270,
+      "unitPrice": 188.19,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d6145504490"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-1707",
+      "numericSku": "",
+      "description": "psmspringroll-chineseveg240g",
+      "quantity": 25,
+      "unitPrice": 119.43,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d6145504491"
+      }
+    },
+    {
+      "itemCode": "FG-M-F-0622",
+      "numericSku": "",
+      "description": "meatigochickenkeema(mince)450g(5%)",
+      "quantity": 360,
+      "unitPrice": 199.05,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d6145504492"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0505",
+      "numericSku": "",
+      "description": "psmchickenmomos24pcs",
+      "quantity": 475,
+      "unitPrice": 220.76,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d6145504493"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0512",
+      "numericSku": "",
+      "description": "psmspicychickenmomos24pcs",
+      "quantity": 325,
+      "unitPrice": 220.76,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d6145504494"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0514",
+      "numericSku": "",
+      "description": "psmvegetable&paneermomos24pcs",
+      "quantity": 75,
+      "unitPrice": 202.67,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d6145504495"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0335",
+      "numericSku": "",
+      "description": "psmchickencheese&onionsausage250g",
+      "quantity": 40,
+      "unitPrice": 144.76,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d6145504496"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0504",
+      "numericSku": "",
+      "description": "psmchickenmomos10pcs",
+      "quantity": 450,
+      "unitPrice": 133.9,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d6145504497"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0513",
+      "numericSku": "",
+      "description": "psmvegetable&paneermomos10pcs",
+      "quantity": 400,
+      "unitPrice": 112.19,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d6145504498"
+      }
+    },
+    {
+      "itemCode": "FG-M-F-1728",
+      "numericSku": "",
+      "description": "meatigortceverydaychickenbreast150g",
+      "quantity": 90,
+      "unitPrice": 119.43,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d6145504499"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0323",
+      "numericSku": "",
+      "description": "psmfrozenporksausage250g",
+      "quantity": 40,
+      "unitPrice": 170.1,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d614550449a"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0236",
+      "numericSku": "",
+      "description": "psmfrozenporkham200g",
+      "quantity": 50,
+      "unitPrice": 177.33,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d614550449b"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0580",
+      "numericSku": "",
+      "description": "psmwholewheatmomos-veg&paneer330g",
+      "quantity": 40,
+      "unitPrice": 162.86,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d614550449c"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0527",
+      "numericSku": "",
+      "description": "psmperiperivegmomos15pcs",
+      "quantity": 80,
+      "unitPrice": 88.67,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d614550449d"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0247",
+      "numericSku": "",
+      "description": "psmfrozenchickensalami200g",
+      "quantity": 25,
+      "unitPrice": 137.52,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d614550449e"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0102",
+      "numericSku": "",
+      "description": "psmfrozenporkbreakfastbacon150g",
+      "quantity": 36,
+      "unitPrice": 152,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d614550449f"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0321",
+      "numericSku": "",
+      "description": "psmfrozenchickensausage250g",
+      "quantity": 380,
+      "unitPrice": 130.29,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d61455044a0"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0581",
+      "numericSku": "",
+      "description": "psmwholewheatmomos-chicken330g",
+      "quantity": 80,
+      "unitPrice": 170.1,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d61455044a1"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0501",
+      "numericSku": "",
+      "description": "psmfschefmomo-chicken1kg",
+      "quantity": 72,
+      "unitPrice": 247.62,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d61455044a2"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0564",
+      "numericSku": "",
+      "description": "psmcheese&chickenmomos540g",
+      "quantity": 25,
+      "unitPrice": 238.86,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d61455044a3"
+      }
+    },
+    {
+      "itemCode": "FG-M-F-1729",
+      "numericSku": "",
+      "description": "meatigortceverydayfishfillet200g",
+      "quantity": 30,
+      "unitPrice": 188.19,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d61455044a4"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0542",
+      "numericSku": "",
+      "description": "periperichickenmomos250g",
+      "quantity": 640,
+      "unitPrice": 72.02,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d61455044a5"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-0237",
+      "numericSku": "",
+      "description": "psmfrozenporkpepperonisalami100g",
+      "quantity": 40,
+      "unitPrice": 133.9,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d61455044a6"
+      }
+    },
+    {
+      "itemCode": "FG-P-F-1911",
+      "numericSku": "",
+      "description": "psmpizzaminis-chickentikka180g",
+      "quantity": 50,
+      "unitPrice": 115.09,
+      "taxableValue": 0,
+      "_id": {
+        "$oid": "6a083a413a589d61455044a7"
+      }
+    }
+  ],
+  "uploadedAt": {
+    "$date": "2026-05-16T09:34:57.670Z"
+  },
+  "__v": 0
+}

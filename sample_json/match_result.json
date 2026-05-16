@@ -1,0 +1,192 @@
+{
+  "_id": {
+    "$oid": "6a0839cdebee72f85ce5d08b"
+  },
+  "poNumber": "CI4PO05788",
+  "__v": 0,
+  "checkedAt": {
+    "$date": "2026-05-16T09:35:52.554Z"
+  },
+  "decision": "One or more validation rules failed. Review mismatches for details.",
+  "linkedDocs": {
+    "poId": {
+      "$oid": "6a0839cb3a589d61455043c2"
+    },
+    "grnIds": [
+      {
+        "$oid": "6a0839f83a589d614550441a"
+      }
+    ],
+    "invoiceIds": [
+      {
+        "$oid": "6a083a413a589d6145504488"
+      }
+    ]
+  },
+  "mismatches": [
+    "invoice_qty_exceeds_grn_qty:4698:inv=72,grn=0",
+    "invoice_qty_exceeds_grn_qty:81521:inv=1565,grn=640",
+    "invoice_qty_exceeds_po_qty:81521:inv=1565,po=640",
+    "invoice_qty_exceeds_grn_qty:98770:inv=36,grn=0",
+    "grn_qty_exceeds_po_qty:598770:grn=36,po=0",
+    "item_missing_in_po:598770",
+    "invoice_qty_exceeds_grn_qty:INV-FG-P-F-0236:inv=50,grn=0",
+    "item_missing_in_po:INV-FG-P-F-0236"
+  ],
+  "reasons": [
+    "grn_qty_exceeds_po_qty",
+    "invoice_qty_exceeds_po_qty",
+    "invoice_qty_exceeds_grn_qty",
+    "item_missing_in_po"
+  ],
+  "ruleResults": {
+    "grn_qty_exceeds_po_qty": true,
+    "invoice_qty_exceeds_po_qty": true,
+    "invoice_qty_exceeds_grn_qty": true,
+    "invoice_date_before_po_date": false,
+    "duplicate_po": false,
+    "item_missing_in_po": true
+  },
+  "shortfallItems": [
+    {
+      "itemCode": "4695",
+      "description": "psmspicychickenmomos10.0piecescolour:size:sizebrand:band_3",
+      "poQty": 100,
+      "grnQty": 0,
+      "invoiceQty": 0,
+      "shortfall": 100
+    },
+    {
+      "itemCode": "4698",
+      "description": "psmchickenham200.0gcolour:size:sizebrand:band1",
+      "poQty": 150,
+      "grnQty": 0,
+      "invoiceQty": 72,
+      "shortfall": 150
+    },
+    {
+      "itemCode": "4701",
+      "description": "psmporkbreakfastbacon300.0gcolour:size:sizebrand:band_1",
+      "poQty": 20,
+      "grnQty": 0,
+      "invoiceQty": 0,
+      "shortfall": 20
+    },
+    {
+      "itemCode": "6665",
+      "description": "psmchickencheese&chillisausages250.0gcolour:size:sizebrand:band_3",
+      "poQty": 100,
+      "grnQty": 0,
+      "invoiceQty": 0,
+      "shortfall": 100
+    },
+    {
+      "itemCode": "18003",
+      "description": "meatigochickencurrycutskinlessfrozen450.0gcolour:size:sizebrand:band_1",
+      "poQty": 120,
+      "grnQty": 30,
+      "invoiceQty": 30,
+      "shortfall": 90
+    },
+    {
+      "itemCode": "18004",
+      "description": "meatigochickenbonelessbreastfrozen450.0gcolour:size:sizebrand:band_1",
+      "poQty": 540,
+      "grnQty": 30,
+      "invoiceQty": 30,
+      "shortfall": 510
+    },
+    {
+      "itemCode": "18906",
+      "description": "psmspringrollsvegfrozen240.0gcolour:size:sizebrand:band_4",
+      "poQty": 175,
+      "grnQty": 0,
+      "invoiceQty": 0,
+      "shortfall": 175
+    },
+    {
+      "itemCode": "26303",
+      "description": "psmchickenpepper&herbsausage250.0gcolour:size:sizebrand:",
+      "poQty": 20,
+      "grnQty": 0,
+      "invoiceQty": 0,
+      "shortfall": 20
+    },
+    {
+      "itemCode": "33388",
+      "description": "psmfrozenchickenpepperonisalami100.0gcolour:size:sizebrand:band3",
+      "poQty": 120,
+      "grnQty": 0,
+      "invoiceQty": 0,
+      "shortfall": 120
+    },
+    {
+      "itemCode": "81521",
+      "description": "psmperiperichickenmomos250.0gcolour:size:sizebrand:band_4",
+      "poQty": 640,
+      "grnQty": 640,
+      "invoiceQty": 1565,
+      "shortfall": 0
+    },
+    {
+      "itemCode": "89201",
+      "description": "psmchickenenglishbreakfastsausage1.0kgcolour:size:sizebrand:band_2",
+      "poQty": 162,
+      "grnQty": 0,
+      "invoiceQty": 0,
+      "shortfall": 162
+    },
+    {
+      "itemCode": "98770",
+      "description": "psmporkbreakfastbacon150.0gcolour:size:sizebrand:",
+      "poQty": 36,
+      "grnQty": 0,
+      "invoiceQty": 36,
+      "shortfall": 36
+    },
+    {
+      "itemCode": "470663",
+      "description": "psmwholewheatmomos-veg&paneer330.0gcolour:size:sizebrand:",
+      "poQty": 80,
+      "grnQty": 40,
+      "invoiceQty": 40,
+      "shortfall": 40
+    },
+    {
+      "itemCode": "489632",
+      "description": "psmtandoorimomos-chicken280.0gcolour:size:sizebrand:",
+      "poQty": 35,
+      "grnQty": 0,
+      "invoiceQty": 0,
+      "shortfall": 35
+    },
+    {
+      "itemCode": "598770",
+      "description": "psmporkbreakfastbacon150.0g",
+      "poQty": 0,
+      "grnQty": 36,
+      "invoiceQty": 0,
+      "shortfall": 0
+    },
+    {
+      "itemCode": "INV-FG-P-F-0236",
+      "description": "psmfrozenporkham200g",
+      "poQty": 0,
+      "grnQty": 0,
+      "invoiceQty": 50,
+      "shortfall": 0
+    }
+  ],
+  "status": "partially_matched",
+  "summary": {
+    "poQty": 6227,
+    "grnReceivedQty": 4705,
+    "invoiceQty": 4705,
+    "shortReceivedQty": 1558,
+    "shortInvoicedQty": 2497,
+    "poDate": "2026-03-17",
+    "grnDate": "2026-03-24",
+    "invoiceDate": "2026-03-24",
+    "invoiceNumber": "IN25MH2504251"
+  }
+}

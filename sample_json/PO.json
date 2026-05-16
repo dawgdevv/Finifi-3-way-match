@@ -1,0 +1,417 @@
+{
+  "_id": {
+    "$oid": "6a0839cb3a589d61455043c2"
+  },
+  "poNumber": "CI4PO05788",
+  "poDate": {
+    "$date": "2026-03-17T00:00:00.000Z"
+  },
+  "vendorName": "M/s AFP",
+  "rawText": "{\"poNumber\":\"CI4PO05788\",\"poDate\":\"2026-03-17\",\"vendorName\":\"M/s AFP\",\"items\":[{\"itemCode\":\"11423\",\"sku\":\"psm Cheesy Spicy Veg Momos 24.0 Pieces Colour: Size: size Brand:Band 2\",\"description\":\"psmcheesyspicyvegmomos24.0piecescolour:size:sizebrand:band2\",\"quantity\":50,\"unitPrice\":220.762},{\"itemCode\":\"11797\",\"sku\":\"Meatigo Hot Wings 250.0 g Colour: Size: size Brand:Band_3\",\"description\":\"meatigohotwings250.0gcolour:size:sizebrand:band_3\",\"quantity\":75,\"unitPrice\":126.667},{\"itemCode\":\"18003\",\"sku\":\"Meatigo Chicken Curry Cut Skin less Frozen 450 .0 g Colour: Size: size Brand:Band_1\",\"description\":\"meatigochickencurrycutskinlessfrozen450.0gcolour:size:sizebrand:band_1\",\"quantity\":120,\"unitPrice\":141.143},{\"itemCode\":\"18004\",\"sku\":\"Meatigo Chicken Boneless Breast Frozen 450.0 g Colour: Size: size Brand:Band_1\",\"description\":\"meatigochickenbonelessbreastfrozen450.0gcolour:size:sizebrand:band_1\",\"quantity\":540,\"unitPrice\":199.048},{\"itemCode\":\"18906\",\"sku\":\"psm Spring Rolls Veg Frozen 240.0 g Colour: Size: size Brand:Band_4\",\"description\":\"psmspringrollsvegfrozen240.0gcolour:size:sizebrand:band_4\",\"quantity\":175,\"unitPrice\":123.048},{\"itemCode\":\"253430\",\"sku\":\"psm Pork Salami 200.0 g Colour: Size: size Brand:\",\"description\":\"psmporksalami200.0gcolour:size:sizebrand:\",\"quantity\":75,\"unitPrice\":188.19},{\"itemCode\":\"33387\",\"sku\":\"psm Frozen Chicken Chilli Salami 200.0 g Colour: Size: size Brand:TORSO\",\"description\":\"psmfrozenchickenchillisalami200.0gcolour:size:sizebrand:torso\",\"quantity\":75,\"unitPrice\":126.667},{\"itemCode\":\"33388\",\"sku\":\"psm Frozen Chicken Pepperoni Salami 100.0 g Colour: Size: size Brand:Band 3\",\"description\":\"psmfrozenchickenpepperonisalami100.0gcolour:size:sizebrand:band3\",\"quantity\":120,\"unitPrice\":108.571},{\"itemCode\":\"33390\",\"sku\":\"psm Chicken Seekh Kebab 500.0 g Colour: Size: size Brand:Band_3\",\"description\":\"psmchickenseekhkebab500.0gcolour:size:sizebrand:band_3\",\"quantity\":272,\"unitPrice\":228},{\"itemCode\":\"398656\",\"sku\":\"Meatigo Chicken Drumsticks 450 .0 g Colour: Size: size Brand:\",\"description\":\"meatigochickendrumsticks450.0gcolour:size:sizebrand:\",\"quantity\":270,\"unitPrice\":188.19},{\"itemCode\":\"414867\",\"sku\":\"psm Chinese Veg Spring Rolls 240.0 g Colour: Size: size Brand:\",\"description\":\"psmchinesevegspringrolls240.0gcolour:size:sizebrand:\",\"quantity\":25,\"unitPrice\":119.429},{\"itemCode\":\"432518\",\"sku\":\"Meatigo Chicken Kheema 450.0 g Colour: Size: size Brand:\",\"description\":\"meatigochickenkheema450.0gcolour:size:sizebrand:\",\"quantity\":360,\"unitPrice\":199.048},{\"itemCode\":\"4459\",\"sku\":\"psm Original Chicken Momos 24.0 Pieces Colour: Size: size Brand:Band_1\",\"description\":\"psmoriginalchickenmomos24.0piecescolour:size:sizebrand:band_1\",\"quantity\":475,\"unitPrice\":220.762},{\"itemCode\":\"4460\",\"sku\":\"psm Spicy Chicken Momos 24 .0 Pieces Colour: Size: size Brand:Band 1\",\"description\":\"psmspicychickenmomos24.0piecescolour:size:sizebrand:band1\",\"quantity\":325,\"unitPrice\":220.762},{\"itemCode\":\"4461\",\"sku\":\"psm Veg & Paneer Momos 24. 0 Pieces Colour: Size: size Brand:Band_2\",\"description\":\"psmveg&paneermomos24.0piecescolour:size:sizebrand:band_2\",\"quantity\":75,\"unitPrice\":202.667},{\"itemCode\":\"453259\",\"sku\":\"psm Chicken Cheese & Onion Sausage 250.0 g Colour: Size: size Brand:\",\"description\":\"psmchickencheese&onionsausage250.0gcolour:size:sizebrand:\",\"quantity\":40,\"unitPrice\":144.762},{\"itemCode\":\"4694\",\"sku\":\"psm Original Chicken Momos 10.0 Pieces Colour: Size: size Brand:Band_4\",\"description\":\"psmoriginalchickenmomos10.0piecescolour:size:sizebrand:band_4\",\"quantity\":450,\"unitPrice\":133.905},{\"itemCode\":\"4695\",\"sku\":\"psm Spicy Chicken Momos 10 .0 Pieces Colour: Size: size Brand:Band_3\",\"description\":\"psmspicychickenmomos10.0piecescolour:size:sizebrand:band_3\",\"quantity\":100,\"unitPrice\":133.905},{\"itemCode\":\"4697\",\"sku\":\"psm Veg & Paneer Momos 10. 0 Pieces Colour: Size: size Brand:Band 2\",\"description\":\"psmveg&paneermomos10.0piecescolour:size:sizebrand:band2\",\"quantity\":400,\"unitPrice\":112.19},{\"itemCode\":\"469735\",\"sku\":\"Meatigo Everyday Chicken Breast (Frozen) 150. 0 g Colour: Size: size Brand:\",\"description\":\"meatigoeverydaychickenbreast(frozen)150.0gcolour:size:sizebrand:\",\"quantity\":90,\"unitPrice\":119.429},{\"itemCode\":\"4698\",\"sku\":\"psm Chicken Ham 200.0 g Colour: Size: size Brand:Band 1\",\"description\":\"psmchickenham200.0gcolour:size:sizebrand:band1\",\"quantity\":150,\"unitPrice\":133.905},{\"itemCode\":\"4699\",\"sku\":\"psm Pork Sausage 250.0 g Colour: Size: size Brand:Band_2\",\"description\":\"psmporksausage250.0gcolour:size:sizebrand:band_2\",\"quantity\":40,\"unitPrice\":170.095},{\"itemCode\":\"4700\",\"sku\":\"psm Pork Ham 200.0 g Colour: Size: size Brand:Band 1\",\"description\":\"psmporkham200.0gcolour:size:sizebrand:band1\",\"quantity\":50,\"unitPrice\":177.333},{\"itemCode\":\"4701\",\"sku\":\"psm Pork Breakfast Bacon 300.0 g Colour: Size: size Brand:Band_1\",\"description\":\"psmporkbreakfastbacon300.0gcolour:size:sizebrand:band_1\",\"quantity\":20,\"unitPrice\":267.81},{\"itemCode\":\"470663\",\"sku\":\"psm Whole Wheat Momos - Veg & Paneer 330.0 g Colour: Size: size Brand:\",\"description\":\"psmwholewheatmomos-veg&paneer330.0gcolour:size:sizebrand:\",\"quantity\":80,\"unitPrice\":162.857},{\"itemCode\":\"489632\",\"sku\":\"psm Tandoori Momos - Chicken 280.0 g Colour: Size: size Brand:\",\"description\":\"psmtandoorimomos-chicken280.0gcolour:size:sizebrand:\",\"quantity\":35,\"unitPrice\":159.238},{\"itemCode\":\"49168\",\"sku\":\"psm Peri Peri Veg Momos 15 .0 Pieces Colour: Size: size Brand:Band_2\",\"description\":\"psmperiperivegmomos15.0piecescolour:size:sizebrand:band_2\",\"quantity\":80,\"unitPrice\":88.667},{\"itemCode\":\"498695\",\"sku\":\"psm Chicken Salami 200.0 g Colour: Size: size Brand:\",\"description\":\"psmchickensalami200.0gcolour:size:sizebrand:\",\"quantity\":25,\"unitPrice\":137.524},{\"itemCode\":\"26303\",\"sku\":\"psm Chicken Pepper & Herb Sausage 250.0 g Colour: Size: size Brand:\",\"description\":\"psmchickenpepper&herbsausage250.0gcolour:size:sizebrand:\",\"quantity\":20,\"unitPrice\":141.143},{\"itemCode\":\"98770\",\"sku\":\"psm Pork Breakfast Bacon 150.0 g Colour: Size: size Brand:\",\"description\":\"psmporkbreakfastbacon150.0gcolour:size:sizebrand:\",\"quantity\":36,\"unitPrice\":152},{\"itemCode\":\"6664\",\"sku\":\"psm Chicken Sausages 250.0 g Colour: Size: size Brand:Band_2\",\"description\":\"psmchickensausages250.0gcolour:size:sizebrand:band_2\",\"quantity\":380,\"unitPrice\":130.286},{\"itemCode\":\"6665\",\"sku\":\"psm Chicken Cheese & Chilli Sausages 250. 0 g Colour: Size: size Brand:Band_3\",\"description\":\"psmchickencheese&chillisausages250.0gcolour:size:sizebrand:band_3\",\"quantity\":100,\"unitPrice\":133.905},{\"itemCode\":\"730016\",\"sku\":\"psm Whole Wheat Chicken Momos 330.0 g Colour: Size: size Brand:\",\"description\":\"psmwholewheatchickenmomos330.0gcolour:size:sizebrand:\",\"quantity\":80,\"unitPrice\":170.095},{\"itemCode\":\"750414\",\"sku\":\"psm Super Saver Chicken Momo Pack (Chef Momos) 1.0 kg Colour: Size: size Brand:\",\"description\":\"psmsupersaverchickenmomopack(chefmomos)1.0kgcolour:size:sizebrand:\",\"quantity\":72,\"unitPrice\":247.619},{\"itemCode\":\"755774\",\"sku\":\"psm Chicken & Cheese Momos 540.0 g Colour: Size: size Brand:\",\"description\":\"psmchicken&cheesemomos540.0gcolour:size:sizebrand:\",\"quantity\":25,\"unitPrice\":238.857},{\"itemCode\":\"790919\",\"sku\":\"Meatigo Everyday Fish Fillet 200.0 g Colour: Size: size Brand:\",\"description\":\"meatigoeverydayfishfillet200.0gcolour:size:sizebrand:\",\"quantity\":30,\"unitPrice\":188.19},{\"itemCode\":\"81521\",\"sku\":\"psm Peri Peri Chicken Momos 250.0 g Colour: Size: size Brand:Band_4\",\"description\":\"psmperiperichickenmomos250.0gcolour:size:sizebrand:band_4\",\"quantity\":640,\"unitPrice\":72.019},{\"itemCode\":\"89201\",\"sku\":\"psm Chicken English Breakfast Sausage 1.0 kg Colour: Size: size Brand:Band_2\",\"description\":\"psmchickenenglishbreakfastsausage1.0kgcolour:size:sizebrand:band_2\",\"quantity\":162,\"unitPrice\":222.857},{\"itemCode\":\"205950\",\"sku\":\"psm Frozen Pork Pepperoni Salami 100.0 g Colour: Size: size Brand:Band_5\",\"description\":\"psmfrozenporkpepperonisalami100.0gcolour:size:sizebrand:band_5\",\"quantity\":40,\"unitPrice\":133.905},{\"itemCode\":\"507809\",\"sku\":\"psm Pizza Minis Chicken Tikka 180.0 g Colour: Size: size Brand:Band_6\",\"description\":\"psmpizzaminischickentikka180.0gcolour:size:sizebrand:band_6\",\"quantity\":50,\"unitPrice\":115.086}]}",
+  "items": [
+    {
+      "itemCode": "11423",
+      "description": "psmcheesyspicyvegmomos24.0piecescolour:size:sizebrand:band2",
+      "quantity": 50,
+      "unitPrice": 220.762,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043c3"
+      }
+    },
+    {
+      "itemCode": "11797",
+      "description": "meatigohotwings250.0gcolour:size:sizebrand:band_3",
+      "quantity": 75,
+      "unitPrice": 126.667,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043c4"
+      }
+    },
+    {
+      "itemCode": "18003",
+      "description": "meatigochickencurrycutskinlessfrozen450.0gcolour:size:sizebrand:band_1",
+      "quantity": 120,
+      "unitPrice": 141.143,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043c5"
+      }
+    },
+    {
+      "itemCode": "18004",
+      "description": "meatigochickenbonelessbreastfrozen450.0gcolour:size:sizebrand:band_1",
+      "quantity": 540,
+      "unitPrice": 199.048,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043c6"
+      }
+    },
+    {
+      "itemCode": "18906",
+      "description": "psmspringrollsvegfrozen240.0gcolour:size:sizebrand:band_4",
+      "quantity": 175,
+      "unitPrice": 123.048,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043c7"
+      }
+    },
+    {
+      "itemCode": "253430",
+      "description": "psmporksalami200.0gcolour:size:sizebrand:",
+      "quantity": 75,
+      "unitPrice": 188.19,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043c8"
+      }
+    },
+    {
+      "itemCode": "33387",
+      "description": "psmfrozenchickenchillisalami200.0gcolour:size:sizebrand:torso",
+      "quantity": 75,
+      "unitPrice": 126.667,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043c9"
+      }
+    },
+    {
+      "itemCode": "33388",
+      "description": "psmfrozenchickenpepperonisalami100.0gcolour:size:sizebrand:band3",
+      "quantity": 120,
+      "unitPrice": 108.571,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043ca"
+      }
+    },
+    {
+      "itemCode": "33390",
+      "description": "psmchickenseekhkebab500.0gcolour:size:sizebrand:band_3",
+      "quantity": 272,
+      "unitPrice": 228,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043cb"
+      }
+    },
+    {
+      "itemCode": "398656",
+      "description": "meatigochickendrumsticks450.0gcolour:size:sizebrand:",
+      "quantity": 270,
+      "unitPrice": 188.19,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043cc"
+      }
+    },
+    {
+      "itemCode": "414867",
+      "description": "psmchinesevegspringrolls240.0gcolour:size:sizebrand:",
+      "quantity": 25,
+      "unitPrice": 119.429,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043cd"
+      }
+    },
+    {
+      "itemCode": "432518",
+      "description": "meatigochickenkheema450.0gcolour:size:sizebrand:",
+      "quantity": 360,
+      "unitPrice": 199.048,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043ce"
+      }
+    },
+    {
+      "itemCode": "4459",
+      "description": "psmoriginalchickenmomos24.0piecescolour:size:sizebrand:band_1",
+      "quantity": 475,
+      "unitPrice": 220.762,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043cf"
+      }
+    },
+    {
+      "itemCode": "4460",
+      "description": "psmspicychickenmomos24.0piecescolour:size:sizebrand:band1",
+      "quantity": 325,
+      "unitPrice": 220.762,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043d0"
+      }
+    },
+    {
+      "itemCode": "4461",
+      "description": "psmveg&paneermomos24.0piecescolour:size:sizebrand:band_2",
+      "quantity": 75,
+      "unitPrice": 202.667,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043d1"
+      }
+    },
+    {
+      "itemCode": "453259",
+      "description": "psmchickencheese&onionsausage250.0gcolour:size:sizebrand:",
+      "quantity": 40,
+      "unitPrice": 144.762,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043d2"
+      }
+    },
+    {
+      "itemCode": "4694",
+      "description": "psmoriginalchickenmomos10.0piecescolour:size:sizebrand:band_4",
+      "quantity": 450,
+      "unitPrice": 133.905,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043d3"
+      }
+    },
+    {
+      "itemCode": "4695",
+      "description": "psmspicychickenmomos10.0piecescolour:size:sizebrand:band_3",
+      "quantity": 100,
+      "unitPrice": 133.905,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043d4"
+      }
+    },
+    {
+      "itemCode": "4697",
+      "description": "psmveg&paneermomos10.0piecescolour:size:sizebrand:band2",
+      "quantity": 400,
+      "unitPrice": 112.19,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043d5"
+      }
+    },
+    {
+      "itemCode": "469735",
+      "description": "meatigoeverydaychickenbreast(frozen)150.0gcolour:size:sizebrand:",
+      "quantity": 90,
+      "unitPrice": 119.429,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043d6"
+      }
+    },
+    {
+      "itemCode": "4698",
+      "description": "psmchickenham200.0gcolour:size:sizebrand:band1",
+      "quantity": 150,
+      "unitPrice": 133.905,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043d7"
+      }
+    },
+    {
+      "itemCode": "4699",
+      "description": "psmporksausage250.0gcolour:size:sizebrand:band_2",
+      "quantity": 40,
+      "unitPrice": 170.095,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043d8"
+      }
+    },
+    {
+      "itemCode": "4700",
+      "description": "psmporkham200.0gcolour:size:sizebrand:band1",
+      "quantity": 50,
+      "unitPrice": 177.333,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043d9"
+      }
+    },
+    {
+      "itemCode": "4701",
+      "description": "psmporkbreakfastbacon300.0gcolour:size:sizebrand:band_1",
+      "quantity": 20,
+      "unitPrice": 267.81,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043da"
+      }
+    },
+    {
+      "itemCode": "470663",
+      "description": "psmwholewheatmomos-veg&paneer330.0gcolour:size:sizebrand:",
+      "quantity": 80,
+      "unitPrice": 162.857,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043db"
+      }
+    },
+    {
+      "itemCode": "489632",
+      "description": "psmtandoorimomos-chicken280.0gcolour:size:sizebrand:",
+      "quantity": 35,
+      "unitPrice": 159.238,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043dc"
+      }
+    },
+    {
+      "itemCode": "49168",
+      "description": "psmperiperivegmomos15.0piecescolour:size:sizebrand:band_2",
+      "quantity": 80,
+      "unitPrice": 88.667,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043dd"
+      }
+    },
+    {
+      "itemCode": "498695",
+      "description": "psmchickensalami200.0gcolour:size:sizebrand:",
+      "quantity": 25,
+      "unitPrice": 137.524,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043de"
+      }
+    },
+    {
+      "itemCode": "26303",
+      "description": "psmchickenpepper&herbsausage250.0gcolour:size:sizebrand:",
+      "quantity": 20,
+      "unitPrice": 141.143,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043df"
+      }
+    },
+    {
+      "itemCode": "98770",
+      "description": "psmporkbreakfastbacon150.0gcolour:size:sizebrand:",
+      "quantity": 36,
+      "unitPrice": 152,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043e0"
+      }
+    },
+    {
+      "itemCode": "6664",
+      "description": "psmchickensausages250.0gcolour:size:sizebrand:band_2",
+      "quantity": 380,
+      "unitPrice": 130.286,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043e1"
+      }
+    },
+    {
+      "itemCode": "6665",
+      "description": "psmchickencheese&chillisausages250.0gcolour:size:sizebrand:band_3",
+      "quantity": 100,
+      "unitPrice": 133.905,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043e2"
+      }
+    },
+    {
+      "itemCode": "730016",
+      "description": "psmwholewheatchickenmomos330.0gcolour:size:sizebrand:",
+      "quantity": 80,
+      "unitPrice": 170.095,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043e3"
+      }
+    },
+    {
+      "itemCode": "750414",
+      "description": "psmsupersaverchickenmomopack(chefmomos)1.0kgcolour:size:sizebrand:",
+      "quantity": 72,
+      "unitPrice": 247.619,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043e4"
+      }
+    },
+    {
+      "itemCode": "755774",
+      "description": "psmchicken&cheesemomos540.0gcolour:size:sizebrand:",
+      "quantity": 25,
+      "unitPrice": 238.857,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043e5"
+      }
+    },
+    {
+      "itemCode": "790919",
+      "description": "meatigoeverydayfishfillet200.0gcolour:size:sizebrand:",
+      "quantity": 30,
+      "unitPrice": 188.19,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043e6"
+      }
+    },
+    {
+      "itemCode": "81521",
+      "description": "psmperiperichickenmomos250.0gcolour:size:sizebrand:band_4",
+      "quantity": 640,
+      "unitPrice": 72.019,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043e7"
+      }
+    },
+    {
+      "itemCode": "89201",
+      "description": "psmchickenenglishbreakfastsausage1.0kgcolour:size:sizebrand:band_2",
+      "quantity": 162,
+      "unitPrice": 222.857,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043e8"
+      }
+    },
+    {
+      "itemCode": "205950",
+      "description": "psmfrozenporkpepperonisalami100.0gcolour:size:sizebrand:band_5",
+      "quantity": 40,
+      "unitPrice": 133.905,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043e9"
+      }
+    },
+    {
+      "itemCode": "507809",
+      "description": "psmpizzaminischickentikka180.0gcolour:size:sizebrand:band_6",
+      "quantity": 50,
+      "unitPrice": 115.086,
+      "hsnCode": "",
+      "_id": {
+        "$oid": "6a0839cb3a589d61455043ea"
+      }
+    }
+  ],
+  "uploadedAt": {
+    "$date": "2026-05-16T09:32:59.441Z"
+  },
+  "__v": 0
+}
