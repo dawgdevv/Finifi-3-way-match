@@ -27,28 +27,52 @@ router.post(
         return;
       }
 
-      // 1. Parse with Gemini
       const parsed = await parseDocument(req.file.buffer, req.file.mimetype, documentType);
 
-      // 2. Save to appropriate collection
       let savedDoc: any;
+
       if (documentType === 'po') {
+        // PO: strict uniqueness — one PO per poNumber
         const existing = await PurchaseOrder.findOne({ poNumber: parsed.poNumber });
         if (existing) {
-          res.status(409).json({ error: 'duplicate_po', poNumber: parsed.poNumber, message: 'Purchase Order already exists' });
+          res.status(409).json({
+            error: 'duplicate_po',
+            poNumber: parsed.poNumber,
+            message: 'A Purchase Order with this number already exists. Delete it first to re-upload.',
+          });
           return;
         }
         savedDoc = await PurchaseOrder.create({ ...parsed, rawText: JSON.stringify(parsed) });
+
       } else if (documentType === 'grn') {
-        savedDoc = await GoodsReceipt.create(parsed);
+        // GRN: deduplicate by grnNumber — replace existing if re-uploaded
+        const existing = await GoodsReceipt.findOne({ grnNumber: parsed.grnNumber });
+        if (existing) {
+          // Update in place rather than creating a duplicate
+          savedDoc = await GoodsReceipt.findByIdAndUpdate(
+            existing._id,
+            { ...parsed, uploadedAt: new Date() },
+            { new: true }
+          );
+        } else {
+          savedDoc = await GoodsReceipt.create(parsed);
+        }
+
       } else {
-        savedDoc = await Invoice.create(parsed);
+        // Invoice: deduplicate by invoiceNumber — replace existing if re-uploaded
+        const existing = await Invoice.findOne({ invoiceNumber: parsed.invoiceNumber });
+        if (existing) {
+          savedDoc = await Invoice.findByIdAndUpdate(
+            existing._id,
+            { ...parsed, uploadedAt: new Date() },
+            { new: true }
+          );
+        } else {
+          savedDoc = await Invoice.create(parsed);
+        }
       }
 
-      // 3. Trigger matching
       await runMatch(parsed.poNumber);
-
-      // 4. Return saved doc + match state
       const matchResult = await MatchResult.findOne({ poNumber: parsed.poNumber });
 
       res.status(201).json({
@@ -62,7 +86,6 @@ router.post(
   }
 );
 
-// Get any document by ID and collection type
 router.get('/:collection/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { collection, id } = req.params;
