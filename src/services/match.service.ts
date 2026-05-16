@@ -127,7 +127,8 @@ export async function runMatch(poNumber: string) {
 
   // Rule 1: GRN qty <= PO qty for each SKU
   for (const [sku, grnQty] of Object.entries(grnMap)) {
-    const poQty = lookupPOQty(sku, grnMap[sku]?.description || '', poMap.byCode, poMap.byDesc);
+    const grnItem = grns.flatMap(g => g.items || []).find(item => item.itemCode?.toString().trim() === sku);
+    const poQty = lookupPOQty(sku, grnItem?.description || '', poMap.byCode, poMap.byDesc);
     if (poQty === undefined) {
       mismatches.push(`item_missing_in_po:${sku}`);
     } else if (grnQty > poQty) {
